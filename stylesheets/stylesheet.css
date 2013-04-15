@@ -343,6 +343,7 @@ dl dd {
 footer {
   background: transparent url('../images/hr.png') 0 0 no-repeat;
   margin-top: 40px;
+  text-align: center;
   padding-top: 20px;
   padding-bottom: 30px;
   font-size: 13px;
