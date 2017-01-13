@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="KERNEL,TECH,">
-        <meta name="description" content="Flash Limitations">
+        <meta name="keywords" content="TECH,">
+        <meta name="description" content="libevent and so on">
         <meta name="author" content="Bergwolf">
-        <title>Flash Limitations</title>
+        <title>libevent and so on</title>
     </head>
     <body>
         <article class="container">
@@ -65,27 +65,82 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Flash Limitations</h1>
+                <h1 class="title">libevent and so on</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1226575440"><span class="from"></span></span>
+                    <span class="date" data-time="1242125400"><span class="from"></span></span>
                     
-                    <span class="tags"><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
                 </section>
-                <article class="content"><p>As stated in <a href="http://lazybastard.org/~joern/logfs1.pdf">the paper of Jorn Engel&rsquo;s(author of logfs)</a>, flash device has some limitations to be a storage device.</p>
+                <article class="content"><p>Since we need a HTTP server to provide efficient service to all kinds of clients, I started to look into some lightweight open source solutions. The first item that jumps into my eyes is libevent, because I happen to read a blog of a facebook developer&rsquo;s, stating that facebook is using libevent as a HTTP server in their haystack photo storage service.</p>
 
-<ol>
-<li><p>Flash requires out of place updates of existing data. Before being able to write to a specific location, that erase block has to be erased. After being erased, all bits are set to 1. An unclean unmount at this time will cause data loss, as neither the old nor the new data can be retrieved.<br />
-<strong>Notes</strong>: which means, transaction writes is a must.</p></li>
+<p>Libevent is a lightweight event driven library wildly used in many applications, such as memcached and tor. Libevent has simple but efficient HTTP support. Here is a sample code building a simple HTTP server with evhttp:</p>
 
-<li><p>Lifetime of flash erase blocks is limited by the number of erase cycles on them. Hardware manufacturers usually guarantee 100.000 erase cycles. This number is per individual erase block.<br />
-<strong>Notes</strong>: in-memory superblock or dynamic superblock? balanced writes.</p></li>
+<pre><code>#include &lt;sys/queue.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netdb.h&gt;
 
-<li><p>Erase blocks are significantly larger than hard disk sectors or filesystem blocks. Therefore, erase blocks must be shared by several filesystem blocks. During operation, erase blocks get partially obsoleted and require garbage collection to free space.<br />
-<strong>Notes</strong>: GC is only one of the ways to solve this problem&hellip;</p></li>
-</ol>
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+#include &lt;evhttp.h&gt;
+
+void ocr_handler(struct evhttp_request *req, void *arg)
+{
+ struct evbuffer *buf;
+ struct evkeyval *header;
+
+ TAILQ_FOREACH(header, req-&gt;input_headers, next) {
+  fprintf(stdout, &quot;key:%s\tvalue:%s\n&quot;, header-&gt;key, header-&gt;value);
+ }
+}
+
+int main(int argc, char **argv)
+{
+ int err;
+ struct evhttp *httpd;
+ struct event_base *evbase;
+ int port = 1234;
+
+ evbase = event_init();
+
+ fprintf(stderr, &quot;event method: %s\n&quot;, event_base_get_method(evbase));
+
+ httpd = evhttp_new(evbase);
+ if ((err = evhttp_bind_socket(httpd, NULL, port)) &lt; 0) {
+  fprintf(stderr, &quot;error binding http server to port %d\n&quot;, port);
+  return -1;
+ }
+
+ /* set callback for &quot;/&quot; */
+ evhttp_set_cb(httpd, &quot;/&quot;, ocr_handler, NULL);
+
+ /* Set a send callback for all other requests. */
+ evhttp_set_gencb(httpd, NULL, NULL);
+
+ event_base_dispatch(evbase);
+
+ evhttp_free(httpd);
+ event_base_free(evbase);
+ return 0;
+}
+</code></pre>
+
+<p>However, as I looked into the library in details and wrote some test programs, it turns out that life is not that easy. I tried to dynamically create threads to serve incoming HTTP requests, but the code didn&rsquo;t work as I thought. After searching for a while, I found the problem:</p>
+
+<blockquote>
+<p><em>Steven Grimm:</em><br />
+What libevent doesn&rsquo;t support is sharing a libevent instance across threads. It works just fine to use libevent in a multithreaded process where only one thread is making libevent calls.</p>
+</blockquote>
+
+<p>Therefore, to use libevent in a multi-threaded program, we should create each thread a event base when initialising the program and call ev_set_base() after ev_set() but before ev_add(). Then we will have a thread pool to serve HTTP requests. There will be a main thread listening to all incoming HTTP requests. When a request comes, it passes the request to some thread from the thread pool and wakes it up to handle the request.</p>
+
+<p>Although this will work, we somehow end up with a master/worker thread architecture, where the main thread handles all reads from netwrok. This will certainly be a bottleneck when there are thousands of clients(think <a href="http://www.kegel.com/c10k.html">the C10K problem</a>). I don&rsquo;t know how the facebook guys deal with this problem(maybe they patched libevent?:), But IMO, using an evhttp dispacher in a multi-threaded process, we&rsquo;ll end up this way.</p>
+
+<p>So, currently, I&rsquo;m planning to look at other solutions like lighttpd before making any decision on the server architecture.</p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -96,13 +151,13 @@
                     
                     <section class="nav prev more">
                         <div class="head">上篇文章</div>
-                        <a class="link" href="/ftl.html">FTL</a>
+                        <a class="link" href="/tesseract-ocr-jpeg-support-added.html">tesseract-ocr jpeg support added</a>
                     </section>
                     
                     
                     <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/ngfs.html">NGFS From ext4 to btrfs</a>
+                        <a class="link" href="/first-glance-at-tesseract-ocr.html">First Glance at tesseract-ocr</a>
                     </section>
                     
                 </section>

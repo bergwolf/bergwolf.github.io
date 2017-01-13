@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="TECH,">
+        <meta name="description" content="tesseract-ocr jpeg support added">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>tesseract-ocr jpeg support added</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,20 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">tesseract-ocr jpeg support added</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1245408600"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>I just pushed some patches to the <a href="https://github.com/bergwolf/tesseract-ocr-copy/tree">github host</a> to add jpeg image support with libjpeg.</p>
+
+<p>One drawback is that, because the image operation infrastructure in tesseract doesn&rsquo;t allow passing libjpeg private structures between open and read operations, I have to open the file stream twice in opening and reading jpeg images.</p>
+
+<p>To test the patch, pull from git://github.com/bergwolf/tesseract-ocr-copy.git and build tesseract-ocr. Then run some tests, this time against jpeg images :)</p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +87,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/easter-egg-in-opensuse-grub.html">Easter Egg in OpenSUSE Grub</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/carpe-diem-to-my-2011.html">Carpe Diem. To My 2011</a>
+                        <a class="link" href="/libevent-and-so-on.html">libevent and so on</a>
                     </section>
                     
                 </section>

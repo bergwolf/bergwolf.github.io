@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="TECH,">
+        <meta name="description" content="First Glance at tesseract-ocr">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>First Glance at tesseract-ocr</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,42 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">First Glance at tesseract-ocr</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1240879740"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>So, I start to look into the name card OCR project. As suggested by Alex, I&rsquo;d first look at the OCR engine developed by Google, <a href="http://code.google.com/p/tesseract-ocr/">tesseract-ocr</a>.</p>
+
+<blockquote>
+<p>From wikipedia:<br />
+Tesseract is a free optical character recognition engine. It was originally developed as proprietary software at Hewlett-Packard between 1985 until 1995. After ten years without any development taking place, Hewlett Packard and UNLV released it as open source in 2005. Tesseract is currently developed by Google and released under the Apache License, Version 2.0</p>
+</blockquote>
+
+<p>It&rsquo;s a little strange that the featured tar balls listed on the project home page have compile errors. After modifying the source code, I successfully got the program binaries, but the language charsets aren&rsquo;t built. Then I change to the svn HEAD version, and it works.</p>
+
+<p>To use tesseract, I simply type:</p>
+
+<pre><code>[bergwolf@bin]$./tesseract phototest.tif result
+Tesseract Open Source OCR Engine
+[bergwolf@bin]$cat result.txt 
+This is a lot of 12 point text to test the
+ocr code and see if it works on all types
+of file format.
+The quick brown dog jumped over the
+lazy fox. The quick brown dog jumped
+over the lazy fox. The quick brown dog
+jumped over the lazy fox. The quick
+brown dog jumped over the lazy fox.
+</code></pre>
+
+<p>Tesseract OCR engine is very accurate, and is very suitable for our name card OCR service, because usually we only have white background and black letters in our images.</p>
+
+<p>However, the drawback is that it doesn&rsquo;t support many image formats. Most mobile device save camera photos in jpeg format. Currently, only tiff and bmp formats are recognizable by tesseract. If we want to use it as our OCR engine, two options are available: either patch tesseract with other image formats support, or use other tools like imagemagick to convert other image formats to tiff or bmp format, both of which shouldn&rsquo;t be very hard.</p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +109,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/libevent-and-so-on.html">libevent and so on</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/carpe-diem-to-my-2011.html">Carpe Diem. To My 2011</a>
+                        <a class="link" href="/gsoc-2009-application-summary.html">GSoC 2009申请总结</a>
                     </section>
                     
                 </section>

@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="我的大学,KERNEL,">
+        <meta name="description" content="First kernel patch">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>First kernel patch</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,37 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">First kernel patch</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1247536200"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>真正意义上的第一个kernel patch（之前给documentation有一个patch，但那不算coding:)。值得纪念的日子，留博一篇。</p>
+
+<p>在ext4 w/o journal模式下，ext4 online resize的两个ioctl不应该提交清空journal的要求，否则会造成一个null pointer的kernel oops。</p>
+
+<pre><code>commit ac046f1d6121ccdda6db66bd88acd52418f489b2
+Author: Peng Tao 
+Date: Mon Jul 13 09:30:17 2009 -0400
+
+ext4: fix null handler of ioctls in no journal mode
+
+The EXT4_IOC_GROUP_ADD and EXT4_IOC_GROUP_EXTEND ioctls should not
+flush the journal in no_journal mode. Otherwise, running resize2fs on
+a mounted no_journal partition triggers the following error messages:
+
+BUG: unable to handle kernel NULL pointer dereference at 00000014
+IP: [] _spin_lock+0x8/0x19
+*pde = 00000000
+Oops: 0002 [#1] SMP
+
+Signed-off-by: Peng Tao 
+Signed-off-by: &quot;Theodore Ts'o&quot;
+</code></pre>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +104,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/valeries-advice-to-fs-developpers.html">Valerie&#39;s Advice to FS Developers</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/carpe-diem-to-my-2011.html">Carpe Diem. To My 2011</a>
+                        <a class="link" href="/content-addressable-storage-next-step.html">Content Addressable Storage -- The Next Step</a>
                     </section>
                     
                 </section>

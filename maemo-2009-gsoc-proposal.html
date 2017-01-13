@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="http://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="http://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="http://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="http://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="http://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="我的大学,">
+        <meta name="description" content="Proposal for maemo 09 GSoC - mainlining N800/N810 kernel">
+        <meta name="author" content="Bergwolf">
+        <title>Proposal for maemo 09 GSoC - mainlining N800/N810 kernel</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Proposal for maemo 09 GSoC - mainlining N800/N810 kernel</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1238778420"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a></span>
+                </section>
+                <article class="content"><h2>Abstract:</h2>
+
+<p>The Maemo Diablo kernel is based on the 2.6.21 version of linux-omap kernel, which is too old now. And since the mainline kernel is the desired target for all merging processes, it is more appropriate to base the Maemo kernel on the mainline kernel. This project aims to get drivers from Maemo&rsquo;s Linux kernel to the mainline (Linus&rsquo;s 2.6.30+) kernel release, patch the mainline kernel with WiFi support from the stlc45xx driver, and boot the mainline kernel in N800s and N810s.</p>
+
+<hr />
+
+<h2>Project title.</h2>
+
+<p>Mainlining the N800/N810 kernel</p>
+
+<h2>Project Abstract (short description).</h2>
+
+<p>The Maemo Diablo kernel is based on the 2.6.21 version of linux-omap kernel, which is too old now. And since the mainline kernel is the desired target for all merging processes, it is more appropriate to base the Maemo kernel on the mainline kernel. This project aims to get drivers from Maemo&rsquo;s Linux kernel to the mainline (Linus&rsquo;s 2.6.30+) kernel release, patch the mainline kernel with WiFi support from the stlc45xx driver, and boot the mainline kernel on N800s and N810s.</p>
+
+<h2>Project full description.</h2>
+
+<p>Maemo Diablo is still running on a patched 2.6.21 omap kernel, which is too old and missing some new features. It&rsquo;s time to rebase Maemo Diablo kernel on a vanilla kernel. This project aims to get the mainline kernel working for N800/N810 devices, and use the new stlc45xx WiFi driver in the mainline kernel. To do this, the vanilla kernel must be patched with several drivers from the Maemo kernel and the linux-omap kernel.</p>
+
+<p>Because many N800/N810 hardware drivers (such as the N800/N810 board drivers) haven&rsquo;t made their way into the mainline kernel, my first goal would be porting enough hardware drivers from linux-omap tree to make the mainline kernel bootable on N800/N810.</p>
+
+<p>The Maemo 5.0 kernel is ready rebased on the 2.6.28 vanilla kernel[1]. I tried to apply the Maemo 5.0 kernel patch to a 2.6.29 vanilla kernel. Most of it applied, with some already merged and a few failures. Therefore, I can generate a new patch based on the Maemo 5.0 kernel patch and make it applicable to a newer mainline kernel (currently 2.6.29, in the future 2.6.30+). By doing this, I will get a bootable kernel on N800/N810 having all hardware supported. The DSP gateway drivers are also included in the Maemo 5.0 kernel patch. The original project idea on Maemo GSoC wiki skipped the DSP gateway support, but it should be supported here.</p>
+
+<p>The next goal is to get N800/N810 booting with WiFi support from stlc45xx. Stlc45xx is an open source WLAN driver based on mac80211 for Nokia N800 and N810 devices. Nokia has been contributing a lot to the stlc45xx driver. It&rsquo;s time to make it usable for Maemo users.</p>
+
+<p>However, stlc45xx is based on the linux-omap tree[2]. There might be problems getting it working on top of Linus&rsquo;s tree. So first I need to find out what stlc45xx needs from linux-omap tree. If something is missing in Linus&rsquo;s tree, I have two options then: either apply the missing commits from linux-omap tree to Linus&rsquo;s tree (preferred), or fall back to an older version of stlc45xx that is supported by Linus&rsquo;s tree.</p>
+
+<h2>Project tasks and deliverables.</h2>
+
+<p>As described above, there are basically two goals for this project:</p>
+
+<ol>
+<li>Port missing drivers to make the mainline kernel bootable on N800/N810.</li>
+<li>Port stlc45xx driver to the mainline kernel, and boot N800/N810 with WiFi support.</li>
+</ol>
+
+<p>At the end of GSoC 2009, I will be submitting the following deliverables:</p>
+
+<ol>
+<li>A binary image (built on Linus&rsquo;s tree) that will boot on N800/N810 with all hardware supported and WiFi support from stlc45xx.</li>
+<li>A patchset against latest Linus&rsquo;s tree that has all changes necessary to build a
+working kernel image, as well as corresponding .config file.</li>
+<li>A website that records every problem I meet and how I solve it. And there will be a summary on my experience of patching the Linux kernel and upgrading the N800/N810 kernel. I plan to place a site on my googlepages (as I did last year), but it can be relocated upon request.</li>
+<li>A detailed developer guide demonstrating how to collect Maemo Diablo patches, apply them to the vanilla kernel, compile the kernel and flash it into N800/N810 devices. A summary on using stlc45xx driver in N800/N810 will be included too.</li>
+</ol>
+
+<h2>Project schedule.</h2>
+
+<p>To complete above tasks, I have a brief timeline as follows:</p>
+
+<ul>
+<li>Before May 23, get familiar with the Maemo kernel, compare mainline kernel with Maemo kernel and collect what is missing in the mainline kernel.</li>
+<li>May 23 - May 29, port N800/N810 drivers from Maemo 5.0 kernel to the mainline kernel, and resolve conflicts.</li>
+<li>May 30 - June 5, build/flash/test/debug</li>
+<li>June 6 - June 12, build/flash/test/debug. Should have a bootable mainline kernel here.</li>
+<li>June 13 - June 19, generate a patch set against the mainline kernel.</li>
+<li>June 20 - June 26, collect what stlc45xx depends on linux-omap tree and is missing in vanilla kernel.</li>
+<li>June 27 - July 3, write documents and prepare for midterm evaluation.</li>
+<li>July 4 - July 10, port stlc45xx and necessary dependencies to mainline kernel, resolve conflicts.</li>
+<li>July 11 - July 17, build/flash/test/debug.</li>
+<li>July 18 - July 24, build/flash/test/debug. Should have WiFi support in mainline kernel.</li>
+<li>July 25 - July 31, write test cases (especially for the stlc45xx driver).</li>
+<li>Aug 1 - Aug 7, scrub code, generate a patch set which includes WiFi support, and improve documentation.</li>
+<li>Aug 8 - Aug 10, prepare for final evaluation and submitting.</li>
+</ul>
+
+<hr />
+
+<p><strong>Do you have other commitments during the summer of code coding period ? If yes, what kind of commitments ?</strong></p>
+
+<p>No. I will be a full-time participant.</p>
+
+<p><strong>Why are you the right person for this project ?</strong></p>
+
+<p>Basically, I am the right person for the following reasons:</p>
+
+<ol>
+<li>Solid programming skills. I&rsquo;ve been writing C/C++ programs in Linux for over 3 years.</li>
+<li>I&rsquo;m familiar with Linux kernel drivers and the kernel community. I have
+been working with kernel drivers and kernel community since last year&rsquo;s
+GSoC (see the biography section). I also send patches to e2fsprogs.</li>
+<li>Because I am developing some N810 user-land applications in my lab, I
+already have an N810 at hand which can be used for testing
+conveniently. I&rsquo;ve been playing with it for some time.</li>
+<li>Last but not less important at all, I have a passion for open source and Linux kernel hacking. I have read a lot of code in the ext4 directory last year, and this year, I&rsquo;ve been reading the code of logfs (a scalable flash filesystem trying to make its way into mainline) in my spare time. Currently, I am still following the ext4 mailing list and have learnt a lot there.</li>
+</ol>
+
+<p><strong>What are the benefits of your project for the Maemo Community ?</strong></p>
+
+<ol>
+<li>A bootable latest mainline kernel that brings in new features for all Maemo users.</li>
+<li>Plenty of documents guiding Maemo users to use stlc45xx drivers and showing developers how to patch/test/debug the Maemo kernel.</li>
+<li>A well documented GSoC project that can be used as a good example for future advocating.</li>
+</ol>
+
+<hr />
+
+<p><strong>Short Biography (academic work, open source background and other activities that you like to do).</strong></p>
+
+<p>My name is Peng Tao. I&rsquo;m a postgraduate student from China majoring in computer science. I completed another GSoC project for openSuSE mentored by ColyLi last year. It enables GRUB legacy to boot on ext4 partitions. Since then, I have been following the ext4 development and sent several patches to e2fsprogs. Besides that, I am an active member of linuxfb.org and BLUG (Beijing Linux User group). I also gave speeches on open source topics at linuxfb.org meetings, BLUG meetings, Novell/Intel OTC workshop, and Gnome Asia Summit 2008.</p>
+
+<p>Here are some useful links for my background:</p>
+
+<ul>
+<li>My blog: <a href="http://bardofschool.blogspot.com/">http://bardofschool.blogspot.com/</a></li>
+<li>My resume: <a href="http://bergwolf.googlepages.com/resume">http://bergwolf.googlepages.com/resume</a></li>
+<li>The GSoC 2008 project I completed: <a href="http://bergwolf.googlepages.com/grub4ext4">http://bergwolf.googlepages.com/grub4ext4</a></li>
+</ul>
+
+<hr />
+
+<p>References:<br />
+[1] <a href="http://repository.maemo.org/pool/maemo5.0alpha/free/k/kernel/">http://repository.maemo.org/pool/maemo5.0alpha/free/k/kernel/</a><br />
+[2] <a href="http://stlc45xx.garage.maemo.org/">http://stlc45xx.garage.maemo.org/</a></p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/gsoc-2009-application-summary.html">GSoC 2009申请总结</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/%e5%86%99%e5%9c%a82008%e7%9a%84%e5%b0%be%e5%b7%b4%e4%b8%8a.html">写在2008的尾巴上</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//bergwolf.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

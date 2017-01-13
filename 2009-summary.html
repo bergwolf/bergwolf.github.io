@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="KERNEL,TECH,">
-        <meta name="description" content="Flash Limitations">
+        <meta name="keywords" content="我的大学,生命的歌声,">
+        <meta name="description" content="长风破浪会有时--我的2009年度总结">
         <meta name="author" content="Bergwolf">
-        <title>Flash Limitations</title>
+        <title>长风破浪会有时--我的2009年度总结</title>
     </head>
     <body>
         <article class="container">
@@ -65,26 +65,45 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Flash Limitations</h1>
+                <h1 class="title">长风破浪会有时--我的2009年度总结</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1226575440"><span class="from"></span></span>
+                    <span class="date" data-time="1262270580"><span class="from"></span></span>
                     
-                    <span class="tags"><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a><a class="tag" href="/tag/%e7%94%9f%e5%91%bd%e7%9a%84%e6%ad%8c%e5%a3%b0/index.html">生命的歌声</a></span>
                 </section>
-                <article class="content"><p>As stated in <a href="http://lazybastard.org/~joern/logfs1.pdf">the paper of Jorn Engel&rsquo;s(author of logfs)</a>, flash device has some limitations to be a storage device.</p>
+                <article class="content"><p>时间总在我不经意的时候从指尖流过。大脑里还沉浸在去年写的计划的时候，2009年的尾巴依然来临。先对照去年写的计划check一下自己完成的程度吧。</p>
+
+<p><em>1. 好好做完SEI项目。</em><br />
+SEI项目是有好好做，可惜没有做完。由于需求的不断变化，现在依然已经做成了下一个项目，只有对王老师说声sorry了。。。项目管理和敏捷开发方面的欠缺在SEI项目中暴露无遗。</p>
+
+<p><em>2. 多看看内核，争取做几个patch出来。</em><br />
+这个倒做的还不错，目前被接受的补丁有4个主线内核补丁，5个e2fsprogs主线补丁和3个btrfs-progs补丁。虽然补丁的质量还不高，但是足以拿来丰富我的简历了：）</p>
+
+<p><em>3. 开始写blog，内容主要是内核Document目录下文档的理解和应用。</em><br />
+这个完成的一般，只写下了两篇（这里和这里)blog。本月初计划的写一个数结构的系列日志的计划，也在小论文的各种打断下搁浅。</p>
+
+<p><em>4. 及时行乐。不要再为一些无谓的事和家人，和女朋友生气。遇事多想想我还有哪些地方说的或做的不够好。生命短暂，我应该抓紧时间爱他们。</em><br />
+我一直深爱着他们，但我相信我可以做得更好。</p>
+
+<p><em>5. 坚持锻炼。大学以来身体越来越差，我要坚持打篮球，至少每周两次。</em><br />
+这是完成得最差的一项，仅仅坚持了一个星期。我的执行力简直差得可怜。</p>
+
+<p><em>6. 当然啦，2009年，暑假要去实习，年内我要找个好工作。</em><br />
+这点算得上2009年最大的收获了。虽然经历的GSoC2009的打击，暑假我还是有幸获得了一份在腾讯北京soso产品中心的实习机会。一个多月的实习时间一点也不长，但是自己却学到了很多东西。工作方面，在各路好心人的帮助下，我有幸得到了淘宝，百度，腾讯和EMC四家公司的青睐。最终选择EMC，终于找到自己的兴趣和工作的结合点，这也不失为人生一大幸事。</p>
+
+<p>在新年的钟声敲响之前，我写下对2010年的自己的期望，希望明年年底再来看这份list的时候，不要像今年这么让自己脸红。</p>
 
 <ol>
-<li><p>Flash requires out of place updates of existing data. Before being able to write to a specific location, that erase block has to be erased. After being erased, all bits are set to 1. An unclean unmount at this time will cause data loss, as neither the old nor the new data can be retrieved.<br />
-<strong>Notes</strong>: which means, transaction writes is a must.</p></li>
-
-<li><p>Lifetime of flash erase blocks is limited by the number of erase cycles on them. Hardware manufacturers usually guarantee 100.000 erase cycles. This number is per individual erase block.<br />
-<strong>Notes</strong>: in-memory superblock or dynamic superblock? balanced writes.</p></li>
-
-<li><p>Erase blocks are significantly larger than hard disk sectors or filesystem blocks. Therefore, erase blocks must be shared by several filesystem blocks. During operation, erase blocks get partially obsoleted and require garbage collection to free space.<br />
-<strong>Notes</strong>: GC is only one of the ways to solve this problem&hellip;</p></li>
+<li>顺利毕业。</li>
+<li>仔细看一本项目管理和一本敏捷开发的书，并写下读书笔记。</li>
+<li>在一月份补完树结构的blog，在二月份着手btrfs的grub2 patch，从四月开始，业余时间加入到btrfs开发中。</li>
+<li>加强执行力，要专注，不折腾。</li>
+<li>加强锻炼，上班以后更要注意，可持续的开垦自己的劳动力。</li>
+<li>在公司要好好跟身边的牛人们学习，争取在一年的时间内加入他们的行列。</li>
+<li>认真对待女朋友和家人，不要再有小孩子脾气。</li>
 </ol>
 </article>
                 <section class="author">
@@ -96,13 +115,13 @@
                     
                     <section class="nav prev more">
                         <div class="head">上篇文章</div>
-                        <a class="link" href="/ftl.html">FTL</a>
+                        <a class="link" href="/%e4%bd%95%e8%b0%93%e6%83%85%e4%ba%b2.html">何谓亲情,何谓爱?</a>
                     </section>
                     
                     
                     <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/ngfs.html">NGFS From ext4 to btrfs</a>
+                        <a class="link" href="/hymn-to-intellectual-beauty.html">Hymn to Intellectual Beauty</a>
                     </section>
                     
                 </section>
