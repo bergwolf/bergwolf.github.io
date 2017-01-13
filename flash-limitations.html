@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="KERNEL,">
+        <meta name="description" content="Flash Limitations">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>Flash Limitations</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,27 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">Flash Limitations</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1226575440"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>As stated in <a href="http://lazybastard.org/~joern/logfs1.pdf">the paper of Jorn Engel&rsquo;s(author of logfs)</a>, flash device has some limitations to be a storage device.</p>
+
+<ol>
+<li><p>Flash requires out of place updates of existing data. Before being able to write to a specific location, that erase block has to be erased. After being erased, all bits are set to 1. An unclean unmount at this time will cause data loss, as neither the old nor the new data can be retrieved.<br />
+<strong>Notes</strong>: which means, transaction writes is a must.</p></li>
+
+<li><p>Lifetime of flash erase blocks is limited by the number of erase cycles on them. Hardware manufacturers usually guarantee 100.000 erase cycles. This number is per individual erase block.<br />
+<strong>Notes</strong>: in-memory superblock or dynamic superblock? balanced writes.</p></li>
+
+<li><p>Erase blocks are significantly larger than hard disk sectors or filesystem blocks. Therefore, erase blocks must be shared by several filesystem blocks. During operation, erase blocks get partially obsoleted and require garbage collection to free space.<br />
+<strong>Notes</strong>: GC is only one of the ways to solve this problem&hellip;</p></li>
+</ol>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +94,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/ftl.html">FTL</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/%e5%86%99%e5%9c%a82008%e7%9a%84%e5%b0%be%e5%b7%b4%e4%b8%8a.html">写在2008的尾巴上</a>
+                        <a class="link" href="/ngfs.html">NGFS From ext4 to btrfs</a>
                     </section>
                     
                 </section>

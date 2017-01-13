@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="我的大学,">
+        <meta name="description" content="Novell&amp;Intel Workshop">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>Novell&amp;Intel Workshop</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,32 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">Novell&amp;Intel Workshop</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1228874700"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>昨天下午，我 有幸作为主讲人参加了Novell和Intel OTC的workshop。题目还是grub4ext4，顺带介绍了下最近正在参与的ext4 without journal的patch。再次拿grub4ext4去忽悠，都有点不好意思了。。。</p>
+
+<p>去的比较早，因为我总是迷路，怕迟到。果然，Novell在36楼，我到财富中心后直接上了37楼以上的电梯，电梯关门后才发现木有36楼按钮。。。残念。。。无奈地去38楼游览了一番后回到1楼换电梯。。。再次对我的路盲特性表示无奈。。。</p>
+
+<p>到了Novell,先找Coly，然后一起布置会议室。Novell的会议室可真不是盖的！第一次玩这种隔间的会议室，中间的隔墙太高级了，两间房间只要把隔墙收起来，就成了一个大的会议室。布置完，时间还早，趴桌上小睡一会儿：）</p>
+
+<p>时间飞快的到了两点半左右，一阵爽朗的笑声把我从周公那里叫了回来。抬头一看，原来是Intel OTC的工程师们来了。一阵寒暄之后，Coly通知来了Novell的工程师，简单的介绍之后，会议正式开始。</p>
+
+<p>因为已经是第四次讲grub4ext4了，这次讲起来有些轻车熟路的感觉。而且这次的slide是在Coly的细心指导下完成的，内容和结构都较以前的版本有了质的飞跃。从VFS讲起，到grub，再到ext2/3，再到ext4，再到grub4ext4。其间被问过好几个问题，所幸对这一块还比较熟悉，答的还算不错。其中比较遗憾的是我对sparse_super这个特性的理解有偏差。之前只是知道有这个feature，没有仔细去看它的实现。还好Coly即时发现并指正了我的错误。</p>
+
+<p>讲完grub4ext4，看了看还有时间，就介绍了一下最近正在参与的让ext4文件系统在没有journal的情况下工作的patch。这个patch的思路比较简单，主要是去hack ext4中调用jbd2的一些接口函数。</p>
+
+<p>workshop完了之后，Alex过来，几个人一起讨论了一下一个文件加密的思路。然后一起去BLUG聚会。地点在俄罗斯餐厅，以前听fay说过，我是第一次去。会上认识了一位Intel的kernel engineer。他很nice的帮我解决了我之前在ext4分区上安装的opensuse无法启动的问题。</p>
+
+<p>总的来说，今天的活动收获最大的就是演讲的时候不那么害怕了（汗一下。。。），还有在和各位工程师的讨论中，对ext4文件系统的理解有更深了一层。晚上在俄罗斯餐厅瞎玩的时候，还无意的发现了之前Eric Sandeen提到的tune2fs -I的bug的原因，主要是因为flex_bg把inode table放到一起之后造成no room for larger inode error.</p>
+
+<p>最后对长久以来对我提供了无比大的支持的Coly Li和各位Linuxer@bupt的同学和朋友们致以崇高敬意和由衷的感谢！</p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +99,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/%e6%88%91%e4%b8%8d%e8%a6%81%e4%bc%98%e8%b6%8a%e7%9a%84%e7%94%9f%e6%b4%bb.html">我不要优越的生活,亦勿需快乐</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/%e5%86%99%e5%9c%a82008%e7%9a%84%e5%b0%be%e5%b7%b4%e4%b8%8a.html">写在2008的尾巴上</a>
+                        <a class="link" href="/ftl.html">FTL</a>
                     </section>
                     
                 </section>

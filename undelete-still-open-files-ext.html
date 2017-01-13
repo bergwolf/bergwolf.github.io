@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="KERNEL,">
+        <meta name="description" content="Undelete Still Open Files on ext2/3/4">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>Undelete Still Open Files on ext2/3/4</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,25 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">Undelete Still Open Files on ext2/3/4</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1224418740"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>As mentioned by Ted on linux-ext4 mailing list, there are some ways to get your files back if it is still open:</p>
+
+<p>Some background:<br />
+On ext3/4, once deleted, the inode will be put to orphaned inode list. On recovery,on recovery this orphan list is traversed and iput will be called on each of the inodes to mark them as free.</p>
+
+<p>So, theoretically, we have out first solution:<br />
+1. provoke a crash and manually remove the inode from the orphan list, then mount the partition as ext3.</p>
+
+<p>But another simple solution exists:<br />
+2. kill -STOP the process that owns the file, copy it via &ldquo;cat /proc/$pid/fd/$fd &gt; rescue-file&rdquo;. and then kill -9 the process if you don&rsquo;t want it to make any further changes.</p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +92,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/ngfs.html">NGFS From ext4 to btrfs</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/%e5%86%99%e5%9c%a82008%e7%9a%84%e5%b0%be%e5%b7%b4%e4%b8%8a.html">写在2008的尾巴上</a>
+                        <a class="link" href="/gnome-asia-summit.html">Gnome Asia Summit 2008</a>
                     </section>
                     
                 </section>

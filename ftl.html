@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="">
-        <meta name="description" content="Hello World">
+        <meta name="keywords" content="KERNEL,">
+        <meta name="description" content="FTL">
         <meta name="author" content="Bergwolf">
-        <title>Hello World</title>
+        <title>FTL</title>
     </head>
     <body>
         <article class="container">
@@ -65,16 +65,26 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Hello World</h1>
+                <h1 class="title">FTL</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484204400"><span class="from"></span></span>
+                    <span class="date" data-time="1226936220"><span class="from"></span></span>
                     
-                    <span class="tags"></span>
+                    <span class="tags"><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a></span>
                 </section>
-                <article class="content"><p>Let&rsquo;s see how it plays out.</p>
+                <article class="content"><p>Most of the following conclusions are taken from Intel&rsquo;s <a href="/files/FTL_INTEL.pdf">Understanding the Flash Translation Layer (FTL) Specification</a>.</p>
+
+<p><em>Note: the problem of FTL is that it has no idea about the contents that it handles. Thus when it stores something, it has to find a new place instead of appending to the original place.</em></p>
+
+<p>FTL is the driver that works in conjunction with an existing operating system (or, in some embedded applications, as the operating system) to make linear flash memory appear to the system like a disk drive. First, it creates “virtual” small blocks of data, or sectors, out of flash’s large erase blocks. Next, it manages data on the flash so that it appears to be “write in place” when in fact it is being stored in different spots in the flash. Finally, FTL manages the flash so there are clean/erased places to store data.</p>
+
+<p>Basically, FTL does one thing: read the block data from the file system, write it at a free/erased location on the flash media and invalidates the block that previously contained the block&rsquo;s data.</p>
+
+<p>For Intel NOR flash, Erased state is 1, programmed state is 0, a 0 cannot be changed back to a 1 except by an erase, and an erase must occur on a full erase block.</p>
+
+<p>The main weakness of a FTL is that it has no idea of what part of an erase block belong to the same file. Thus leads to massive obslated blocks and more often garbage collection. The introduction of SATA 3.0 interface can solve this problem, with the new TRIM command which tells the underlying FTL which blocks are no longer being used and can be erased in garbage collection.</p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -83,10 +93,15 @@
                 </section>
                 <section class="recommend">
                     
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/novell-intel-workshop.html">Novell&amp;Intel Workshop</a>
+                    </section>
                     
-                    <section class="nav next">
+                    
+                    <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/%e5%86%99%e5%9c%a82008%e7%9a%84%e5%b0%be%e5%b7%b4%e4%b8%8a.html">写在2008的尾巴上</a>
+                        <a class="link" href="/flash-limitations.html">Flash Limitations</a>
                     </section>
                     
                 </section>
