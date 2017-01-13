@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
-  <id>http://blog.bergwolf.me</id>
-  <updated>2017-01-13T12:25:17+08:00</updated>
+  <id>http://bergwolf.me</id>
+  <updated>2017-01-13T14:48:33+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
-  <link href="http://blog.bergwolf.me"></link>
+  <link href="http://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
   <entry>
     <title>Hello World</title>
     <updated>2017-01-12T15:00:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2017-01-12:/hello-world.html</id>
+    <id>tag:bergwolf.me,2017-01-12:/hello-world.html</id>
     <content type="html">&lt;p&gt;Migrating my blog entries to &lt;a href=&#34;http://www.chole.io&#34;&gt;Ink&lt;/a&gt;&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/hello-world.html"></link>
+    <link href="http://bergwolf.me/hello-world.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -20,9 +20,9 @@
   <entry>
     <title>写在2008的尾巴上</title>
     <updated>2008-12-31T23:38:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-12-31:/写在2008的尾巴上.html</id>
+    <id>tag:bergwolf.me,2008-12-31:/写在2008的尾巴上.html</id>
     <content type="html">&lt;p&gt;是的,这才是真的年终总结.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/写在2008的尾巴上.html"></link>
+    <link href="http://bergwolf.me/写在2008的尾巴上.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -30,9 +30,9 @@
   <entry>
     <title>2008年终总结--影响我生命的那些事</title>
     <updated>2008-12-30T14:30:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-12-30:/2008年年终总结.html</id>
+    <id>tag:bergwolf.me,2008-12-30:/2008年年终总结.html</id>
     <content type="html">&lt;p&gt;思想的转折点.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/2008年年终总结.html"></link>
+    <link href="http://bergwolf.me/2008年年终总结.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -40,9 +40,9 @@
   <entry>
     <title>我不要优越的生活,亦勿需快乐</title>
     <updated>2008-12-27T23:06:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-12-27:/我不要优越的生活.html</id>
+    <id>tag:bergwolf.me,2008-12-27:/我不要优越的生活.html</id>
     <content type="html">&lt;p&gt;快乐让人陶醉，而忘了现实，忘了目的。优越的生活亦是磨灭斗志的利器。&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/我不要优越的生活.html"></link>
+    <link href="http://bergwolf.me/我不要优越的生活.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -50,9 +50,9 @@
   <entry>
     <title>Novell&amp;Intel Workshop</title>
     <updated>2008-12-10T10:05:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-12-10:/novell-intel-workshop.html</id>
+    <id>tag:bergwolf.me,2008-12-10:/novell-intel-workshop.html</id>
     <content type="html">&lt;p&gt;受邀参加Novell和Intel合办的技术聚会,回来总结一下.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/novell-intel-workshop.html"></link>
+    <link href="http://bergwolf.me/novell-intel-workshop.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -60,9 +60,9 @@
   <entry>
     <title>FTL</title>
     <updated>2008-11-17T23:37:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-11-17:/ftl.html</id>
+    <id>tag:bergwolf.me,2008-11-17:/ftl.html</id>
     <content type="html">&lt;p&gt;Understanding flash device is key to flash-optimised file system design.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/ftl.html"></link>
+    <link href="http://bergwolf.me/ftl.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -70,9 +70,9 @@
   <entry>
     <title>Flash Limitations</title>
     <updated>2008-11-13T19:24:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-11-13:/flash-limitations.html</id>
+    <id>tag:bergwolf.me,2008-11-13:/flash-limitations.html</id>
     <content type="html">&lt;p&gt;Understanding flash device limitations is key to flash-optimised file system design.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/flash-limitations.html"></link>
+    <link href="http://bergwolf.me/flash-limitations.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -80,9 +80,9 @@
   <entry>
     <title>NGFS From ext4 to btrfs</title>
     <updated>2008-10-20T12:22:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-10-20:/ngfs.html</id>
+    <id>tag:bergwolf.me,2008-10-20:/ngfs.html</id>
     <content type="html">&lt;p&gt;Core kernel fs developers view toward the future.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/ngfs.html"></link>
+    <link href="http://bergwolf.me/ngfs.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -90,9 +90,9 @@
   <entry>
     <title>Undelete Still Open Files on ext2/3/4</title>
     <updated>2008-10-19T20:19:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-10-19:/undelete-still-open-files-ext.html</id>
+    <id>tag:bergwolf.me,2008-10-19:/undelete-still-open-files-ext.html</id>
     <content type="html">&lt;p&gt;Some useful little hacking hints.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/undelete-still-open-files-ext.html"></link>
+    <link href="http://bergwolf.me/undelete-still-open-files-ext.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -100,9 +100,9 @@
   <entry>
     <title>Gnome Asia Summit 2008</title>
     <updated>2008-10-19T19:54:00+08:00</updated>
-    <id>tag:blog.bergwolf.me,2008-10-19:/gnome-asia-summit.html</id>
+    <id>tag:bergwolf.me,2008-10-19:/gnome-asia-summit.html</id>
     <content type="html">&lt;p&gt;Gnome Asia Summit 2008总结.&lt;/p&gt;&#xA;</content>
-    <link href="http://blog.bergwolf.me/gnome-asia-summit.html"></link>
+    <link href="http://bergwolf.me/gnome-asia-summit.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
