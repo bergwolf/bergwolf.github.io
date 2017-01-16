@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="http://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="http://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="http://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="http://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="http://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="LSF,">
+        <meta name="description" content="2012 LSF/MM Summit Summary - Day 2">
+        <meta name="author" content="Bergwolf">
+        <title>2012 LSF/MM Summit Summary - Day 2</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">2012 LSF/MM Summit Summary - Day 2</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1336330440"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/LSF/index.html">LSF</a></span>
+                </section>
+                <article class="content"><h2>Flash Media</h2>
+
+<p>The second day of LSF/MM summit started with flash media led by Steven Sprouse from SanDisk. He started with an introduction of lifetime terabyte writes, which is defined as:</p>
+
+<pre><code>         physical capacity * write endurance
+LTW =   -------------------------------------
+            write amplification
+</code></pre>
+
+<p>Physical capacity is increasing but write endurance is decreasing as write cycle increases (every write cycle hurts NAND so that it stores data for shorter amount of time). Write amplification is affected by many factors, like block size, provisioning, trim etc.</p>
+
+<p>Sprouse mentioned that some SSD vendors are starting to use hybrid SLC/MLC where SLC is used for frequent journal write and MLC for data blocks. Therefore the request for SSD to ask for information to differentiate metadata write and data write has been proposed, with tagging information, flash can better decide where to storage the data.</p>
+
+<p>Another point made by Sprouse is the definition of &ldquo;random write&rdquo;. Different hardware has different capability of handling random write. For flash, anything smaller than erase block is random write. However, erase block size is changing. It was 64KB back in 2004 but now most are 1MB. So it is really necessary that flash vendors expose such information to OS developers.</p>
+
+<p>To help flash to get better NAND geometry, possible ways that flash vendor and OS developers can cooperate are:</p>
+
+<ol>
+<li>OS tells flash what data may be dropped at the same time, so that flash can put these data in the same erase block. One example given by Ted is rpm/deb package files. They are likely to vanish at the same time during upgrade.</li>
+<li>Flash vendor reports some geometry information to upper layers, like block size, page size, stripe size, etc.</li>
+<li>Provide some tagging mechanisms so that userspace/fs can tag different data types, e.g., metadata and data, hot data and code data, etc.</li>
+<li>filesystems help on cleaning up (trim).</li>
+</ol>
+
+<p>It is suggested that flash vendors make a list of information that they are willing to provide and OS developers can look at it and decide what can be useful. However, even if there are standard ways to query these information, vendors are not forced to fill them in correctly.</p>
+
+<h2>Flash Cache in the Operating System</h2>
+
+<p>The discussion mainly happened around integrating bcache. Flashcache is implemented by Facebook and based on device-mapper, which bcache is implemented by Google and performs better than flashcache. However, bcache need so many information dropped/hidden by DM that it bypasses DM completely. To integrate bcache with DM, there would be a large amount of changes to DM, and some changes to block layer as well. The discussion didn&rsquo;t result in any real conclusion though.</p>
+
+<h2>High IOPS and SCSI/Block</h2>
+
+<p>Roland Dreier introduces two current modes of writing block drivers: register its own make_request, and using bolck layer make_request(). The former is too low level that it bypasses many useful block layer functions, while the latter is slow because of heavy lock contention. Jen Axboe proposed his multi-queue patches that implements per-CPU queue coupled with lightweight elevator. He promised to get these patches soon and it will help solve the performance problem.</p>
+
+<p>Another issue discussed is Dell&rsquo;s vision of accessing PCIe flash devices. Currently PCIe flash devices still provide block interfaces, but they are hoping to change to use memory interfaces to get better performance. However, it is pointed out that memory interface doesn&rsquo;t do software error recovery. Any error reported by device is fatal failure so devices have to all error handling and only report error as the last resort.</p>
+
+<h2>LBA Hinting and New Storage Commands</h2>
+
+<p>Frederick Knight led the discussion of handling shingle drives. Shingle drives can largely increase disk density but require OS to write in band. There are three options:</p>
+
+<ol>
+<li>transparent to OS</li>
+<li>banding: let the host manage geometry and expose new SCSI commands for handling bands</li>
+<li>transparent with Hints: make it look like a normal disks but develop new SCSI commands to hint both ways between device and host what the data is and device characteristics are to try to optimize data placement</li>
+</ol>
+
+<p>The second option is dropped by attendees immediately. And the first option looks more like current SSD&rsquo;s situation and the third option is the same situation that flash vendors are pursuing.</p>
+
+<h2>Storage Manager</h2>
+
+<p>Lukas Czerner led the session to give an update of his command line storage manager. It mainly aims to be a generic storage manager and reduce the complexity of manage different storage devices and file systems. However, as underlying storage device/filesystems may provide different type-dependent options, the new storage manager reduce complexity iff users don&rsquo;t need those misc options.</p>
+
+<h2>WRITE_SAME and UNMAP, FSTRIM</h2>
+
+<p>The session started with some complaint about current trim command. In the ATA TRIM command, there are only two bytes used for trim range, meaning the range can be at most 64K sectors, which is 32MB for each TRIM operation. Another problem is current block layer only allows for continuous trim range. As TRIM is non-queue, the overhead goes up a lot when there are a lot of distinct ranges to trim. Christoph Hellwig had some PoC to demonstrate multi-range trim in XFS and it showed only ~1% overhead compared with no trim case.</p>
+
+<p>Besides trim, scatter/gatter SCSI commands have the same multi-range problem. There are two options to implement multi-range command in block layer, allowing single BIO to carry multiple ranges, and use a linked BIOs for the range. After discussion, the latter is adopted.</p>
+
+<h2>NFS server issues</h2>
+
+<p>Bruce Fields led the session with current status of knfsd with regard to features like change attributes, delegation/oplocks, share locks, delete-file recovery/server-side sillyrename and lock recovery.</p>
+
+<p>During the discussion, people asked about pNFS and Boaz made a point that kernel pNFS server may not be happening because there is no developer interest in making it happen.</p>
+
+<p><img data-src="/images/lsf2012-group.jpg" width="90%" hight="90%" alt="Group Photo"></img></p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/quotes-shakespeare.html">Quotes Shakespeare</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2012-lsf-day1.html">2012 LSF/MM Summit Summary - Day 1</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//bergwolf.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

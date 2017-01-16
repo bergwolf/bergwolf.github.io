@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="http://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="http://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="http://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="http://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="http://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="LSF,">
+        <meta name="description" content="CLSF 2011 - Day 2">
+        <meta name="author" content="Bergwolf">
+        <title>CLSF 2011 - Day 2</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">CLSF 2011 - Day 2</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1320087780"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/LSF/index.html">LSF</a></span>
+                </section>
+                <article class="content"><p>The second day of <a href="http://www.china-lsf.org/2011/">CLSF 2011</a> started with Wu Fengguang&rsquo;s IO-less throttling. It is a continuous work from last year. Fengguang has done great work in improving Linux kernel read-ahead. And in the last two years, he is working on improving writeback.</p>
+
+<p>There are many dirty page writeback path in Linux kernel: fsync(), sync(), periodic writeback, backgroud writeback, balance_dirty_pages() and page reclaim path. Among them, balance_dirty_pages() and page reclaim path are worst for performance because they tend to writeback random single page. The purpose of balance_dirty_pages() is to balance page dirtying and page writeback, so that task doesn&rsquo;t cause too much memory pressure. Currently, balance_dirty_pages() calls writeback_inodes_wb() to writeback dirty pages. What Fengguang does is to adjust balance_dirty_pages() to:</p>
+
+<ol>
+<li>let dirtier task sleep instead of initiate writeback in balance_dirty_pages(), so flusher can start writeback when necessary;</li>
+<li>make page dirtying and writeback speed matching smoothly so that page reclaim is avoided as much as possible;</li>
+<li>balance the dirty speed of each memory dirtier so that large writer don&rsquo;t eat all memory causing smaller writers stall for a long time.</li>
+</ol>
+
+<p>There are a few parameters to tune and the most important one is how long dirtier should task sleep, which takes into account current disk write bandwidth, system memory pressure and task dirtying speed.</p>
+
+<p>The whole patchsets are referred as IO-less throttling and are getting merged in 3.2 merge window as decided in Kernel Summit last week. It is really a time-consuming critical work that needs brilliant and patient mind. Fengguang said he draw more than 10K performance graphs and read even more in the past year.</p>
+
+<p>While the IO-less throttling patches help improving writeback performance, Coly and Ma Tao said they are more interested in a side effect of the patches, per-task buffer writer bandwidth control. The problem comes with current implementation of blkio cgroup, which calculates IO bandwidth on the task that submitted bio. However, for buffer write, the pages are most likely written back by flusher thread. So the blkio controller does not work for buffer write. But Fengguang&rsquo;s IO-less throttling gives another way &ndash; control write speed at balance_dirty_pages(). Fengguang said it should be possible and easy for balance_dirty_pages().</p>
+
+<p><img src="data:image/gif;base64,R0lGODlhGAAYAPQAAP///wAAAM7Ozvr6+uDg4LCwsOjo6I6OjsjIyJycnNjY2KioqMDAwPLy8nd3d4aGhri4uGlpaQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkHAAAAIf4aQ3JlYXRlZCB3aXRoIGFqYXhsb2FkLmluZm8AIf8LTkVUU0NBUEUyLjADAQAAACwAAAAAGAAYAAAFriAgjiQAQWVaDgr5POSgkoTDjFE0NoQ8iw8HQZQTDQjDn4jhSABhAAOhoTqSDg7qSUQwxEaEwwFhXHhHgzOA1xshxAnfTzotGRaHglJqkJcaVEqCgyoCBQkJBQKDDXQGDYaIioyOgYSXA36XIgYMBWRzXZoKBQUMmil0lgalLSIClgBpO0g+s26nUWddXyoEDIsACq5SsTMMDIECwUdJPw0Mzsu0qHYkw72bBmozIQAh+QQJBwAAACwAAAAAGAAYAAAFsCAgjiTAMGVaDgR5HKQwqKNxIKPjjFCk0KNXC6ATKSI7oAhxWIhezwhENTCQEoeGCdWIPEgzESGxEIgGBWstEW4QCGGAIJEoxGmGt5ZkgCRQQHkGd2CESoeIIwoMBQUMP4cNeQQGDYuNj4iSb5WJnmeGng0CDGaBlIQEJziHk3sABidDAHBgagButSKvAAoyuHuUYHgCkAZqebw0AgLBQyyzNKO3byNuoSS8x8OfwIchACH5BAkHAAAALAAAAAAYABgAAAW4ICCOJIAgZVoOBJkkpDKoo5EI43GMjNPSokXCINKJCI4HcCRIQEQvqIOhGhBHhUTDhGo4diOZyFAoKEQDxra2mAEgjghOpCgz3LTBIxJ5kgwMBShACREHZ1V4Kg1rS44pBAgMDAg/Sw0GBAQGDZGTlY+YmpyPpSQDiqYiDQoCliqZBqkGAgKIS5kEjQ21VwCyp76dBHiNvz+MR74AqSOdVwbQuo+abppo10ssjdkAnc0rf8vgl8YqIQAh+QQJBwAAACwAAAAAGAAYAAAFrCAgjiQgCGVaDgZZFCQxqKNRKGOSjMjR0qLXTyciHA7AkaLACMIAiwOC1iAxCrMToHHYjWQiA4NBEA0Q1RpWxHg4cMXxNDk4OBxNUkPAQAEXDgllKgMzQA1pSYopBgonCj9JEA8REQ8QjY+RQJOVl4ugoYssBJuMpYYjDQSliwasiQOwNakALKqsqbWvIohFm7V6rQAGP6+JQLlFg7KDQLKJrLjBKbvAor3IKiEAIfkECQcAAAAsAAAAABgAGAAABbUgII4koChlmhokw5DEoI4NQ4xFMQoJO4uuhignMiQWvxGBIQC+AJBEUyUcIRiyE6CR0CllW4HABxBURTUw4nC4FcWo5CDBRpQaCoF7VjgsyCUDYDMNZ0mHdwYEBAaGMwwHDg4HDA2KjI4qkJKUiJ6faJkiA4qAKQkRB3E0i6YpAw8RERAjA4tnBoMApCMQDhFTuySKoSKMJAq6rD4GzASiJYtgi6PUcs9Kew0xh7rNJMqIhYchACH5BAkHAAAALAAAAAAYABgAAAW0ICCOJEAQZZo2JIKQxqCOjWCMDDMqxT2LAgELkBMZCoXfyCBQiFwiRsGpku0EshNgUNAtrYPT0GQVNRBWwSKBMp98P24iISgNDAS4ipGA6JUpA2WAhDR4eWM/CAkHBwkIDYcGiTOLjY+FmZkNlCN3eUoLDmwlDW+AAwcODl5bYl8wCVYMDw5UWzBtnAANEQ8kBIM0oAAGPgcREIQnVloAChEOqARjzgAQEbczg8YkWJq8nSUhACH5BAkHAAAALAAAAAAYABgAAAWtICCOJGAYZZoOpKKQqDoORDMKwkgwtiwSBBYAJ2owGL5RgxBziQQMgkwoMkhNqAEDARPSaiMDFdDIiRSFQowMXE8Z6RdpYHWnEAWGPVkajPmARVZMPUkCBQkJBQINgwaFPoeJi4GVlQ2Qc3VJBQcLV0ptfAMJBwdcIl+FYjALQgimoGNWIhAQZA4HXSpLMQ8PIgkOSHxAQhERPw7ASTSFyCMMDqBTJL8tf3y2fCEAIfkECQcAAAAsAAAAABgAGAAABa8gII4k0DRlmg6kYZCoOg5EDBDEaAi2jLO3nEkgkMEIL4BLpBAkVy3hCTAQKGAznM0AFNFGBAbj2cA9jQixcGZAGgECBu/9HnTp+FGjjezJFAwFBQwKe2Z+KoCChHmNjVMqA21nKQwJEJRlbnUFCQlFXlpeCWcGBUACCwlrdw8RKGImBwktdyMQEQciB7oACwcIeA4RVwAODiIGvHQKERAjxyMIB5QlVSTLYLZ0sW8hACH5BAkHAAAALAAAAAAYABgAAAW0ICCOJNA0ZZoOpGGQrDoOBCoSxNgQsQzgMZyIlvOJdi+AS2SoyXrK4umWPM5wNiV0UDUIBNkdoepTfMkA7thIECiyRtUAGq8fm2O4jIBgMBA1eAZ6Knx+gHaJR4QwdCMKBxEJRggFDGgQEREPjjAMBQUKIwIRDhBDC2QNDDEKoEkDoiMHDigICGkJBS2dDA6TAAnAEAkCdQ8ORQcHTAkLcQQODLPMIgIJaCWxJMIkPIoAt3EhACH5BAkHAAAALAAAAAAYABgAAAWtICCOJNA0ZZoOpGGQrDoOBCoSxNgQsQzgMZyIlvOJdi+AS2SoyXrK4umWHM5wNiV0UN3xdLiqr+mENcWpM9TIbrsBkEck8oC0DQqBQGGIz+t3eXtob0ZTPgNrIwQJDgtGAgwCWSIMDg4HiiUIDAxFAAoODwxDBWINCEGdSTQkCQcoegADBaQ6MggHjwAFBZUFCm0HB0kJCUy9bAYHCCPGIwqmRq0jySMGmj6yRiEAIfkECQcAAAAsAAAAABgAGAAABbIgII4k0DRlmg6kYZCsOg4EKhLE2BCxDOAxnIiW84l2L4BLZKipBopW8XRLDkeCiAMyMvQAA+uON4JEIo+vqukkKQ6RhLHplVGN+LyKcXA4Dgx5DWwGDXx+gIKENnqNdzIDaiMECwcFRgQCCowiCAcHCZIlCgICVgSfCEMMnA0CXaU2YSQFoQAKUQMMqjoyAglcAAyBAAIMRUYLCUkFlybDeAYJryLNk6xGNCTQXY0juHghACH5BAkHAAAALAAAAAAYABgAAAWzICCOJNA0ZVoOAmkY5KCSSgSNBDE2hDyLjohClBMNij8RJHIQvZwEVOpIekRQJyJs5AMoHA+GMbE1lnm9EcPhOHRnhpwUl3AsknHDm5RN+v8qCAkHBwkIfw1xBAYNgoSGiIqMgJQifZUjBhAJYj95ewIJCQV7KYpzBAkLLQADCHOtOpY5PgNlAAykAEUsQ1wzCgWdCIdeArczBQVbDJ0NAqyeBb64nQAGArBTt8R8mLuyPyEAOw==" data-src="/images/clsf-2011-day2-discussion.jpg" alt="IO-less throttling discussion" /></p>
+
+<p>The second topic is memory management discussion led by Li Shaohua. We mainly discussed some issues found in Taobao&rsquo;s/Baidu&rsquo;s data centers. The first issue Coly presented is whether swap-off on all-in-memory service servers. When swap on, performance may get hurt when pages are swapping out, while swap off, oom-killer is easy to trigger when applications uses too many memory. The real problem is that application doesn&rsquo;t know about system memory pressure (malloc doesn&rsquo;t fail at all) until oom. A possible solution would be to send sigfault to application when system reaching memory high watermark. <a href="http://weibo.com/hd8003">Xie Guangjun</a> from Baidu, commented that swap is on in their deployment. Only small databases are all-in-memory. For file data, they use auto tiering, and their search engine applications are not allowed to allocate memory dynamically&hellip;</p>
+
+<p>Another issue in Taobao is about SSD+HD auto tiering. HD data cache hit ratio is very low. As a result, when there is a cache miss in SSD, reading from HD is very slow (avg 3 IO per file, dentry, inode, data). Possible solutions:</p>
+
+<ol>
+<li>Use cgroups to control memory for SSD and HD, to keep HD buffers cache in memory.</li>
+<li>Use DIO to read these small data, to avoid wasting page cache for HD data.</li>
+<li>Create a new zone, use bdi-&gt;mapping flag to specify which zone to alloc memoroy for device, for the same reason as 1.</li>
+</ol>
+
+<p>Also it is mentioned that memcg count buffer cache to first users but it is unfair. Possible solution would be to create a task struct for each bdi and count these pages to bdi task.</p>
+
+<p>In the afternoon, first I led a session on pNFS discussion. The first issue is how much layout client should be asking for IO. Current pNFS client only asks 4KB length of layout in writepages, even if the wbc requires much more. Fengguang agreed that client has the information of how much to writeback and it is a pity to drop the information letting server do a wild guess. Then I presented the idea of making pNFS Linux a full POSIX client. It is technically do-able but the main reason (for EMC) would be business need.
+<img data-src="/images/clsf-2011-day2-discussion-2.jpg" alt="pNFS discussion" hight="70%" width="70%"></img></p>
+
+<p>After that, Xie Guangjun led a session about Baidu&rsquo;s work in their data centers. The first change is to use memcg to guild oom-killer. They make mapreduce jobtracker send down memory limit per task, then task tracker creates new task with memory limit (now use cgroups) and oom-killer kills all processes in the same cgroup.</p>
+
+<p>Another interesting thing is that, Baidu is building a global resource manager in their data center. The idea is similar to Hadoop&rsquo;s new resource manager in MDS will be a general purpose one. Guangjun mentioned that Google has a similar implementation in their data center as well.</p>
+
+<p>The most interesting thing from Baidu is their work on flash. In current deployment, they build SSD from NAND with MTD+UBI+LVM. It is a joint work together with Huawei and fully implemented the functionality of mysterious FTL. In the future,they will build the SSD such that it bypasses whole VFS layer and uses ioctl API to do read/write/trim. It seems that even with some of Nick Pidgin&rsquo;s scalability patches merged, Linux VFS is still a hot pot of lock contention for high speed storage. In our previous training from Whamcloud, they came to the same conclusion and are planning to drop VFS interface in the future.</p>
+
+<p>After Baidu, Intel performance team let a discussion about the impact of emerging new hardware on current system architecture, namingly SSD and PCM. SSD is already changing system architecture in Baidu. PCM is likely to be even more evolutionary, even removing the need for current complex implemented file systems. However, it is still way far in the future. We need to focus on what we have at hand.</p>
+
+<p>That&rsquo;s all for the two days event. I didn&rsquo;t mean to write so long stories but all the above are worth documenting. So I can&rsquo;t drop any of them&hellip;</p>
+
+<p>In the end, thanks Baidu and Fujitsu for their generous sponsorship. Thank you all CLSF committees for making this happen. And thanks EMC for sending me there. It is really a valuable experience and will benefit me for quite a long time.</p>
+
+<p><img data-src="/images/clsf-2011-group.jpg" alt="Group Photo" hight="70%" width="70%"></img></p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/carpe-diem-to-my-2011.html">Carpe Diem. To My 2011</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/clsf-2011-day1.html">CLSF 2011 - Day 1</a>
+                    </section>
+                    
+                </section>
+                
+    <section id="disqus_thread"></section>
+    <script type="text/javascript">
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//bergwolf.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>
