@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="TECH,">
-        <meta name="description" content="Content Addressable Storage -- The Next Step">
+        <meta name="keywords" content="TECH,HYPER,CONTAINER,">
+        <meta name="description" content="迁移blog到Hyper.sh">
         <meta name="author" content="Bergwolf">
-        <title>Content Addressable Storage -- The Next Step</title>
+        <title>迁移blog到Hyper.sh</title>
     </head>
     <body>
         <article class="container">
@@ -65,37 +65,102 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">Content Addressable Storage -- The Next Step</h1>
+                <h1 class="title">迁移blog到Hyper.sh</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1247420040"><span class="from"></span></span>
+                    <span class="date" data-time="1484585520"><span class="from"></span></span>
                     
-                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a><a class="tag" href="/tag/HYPER/index.html">HYPER</a><a class="tag" href="/tag/CONTAINER/index.html">CONTAINER</a></span>
                 </section>
-                <article class="content"><p>Recently, I was writing an slightly modified version of implementation of Content Addressable Storage (CAS) for our on-line image servers. I found it a perfect choice to apply CAS to image servers, where images are uploaded once and never changed, and where disk access throughput is a main bottleneck to many large-scale on-line image service providers.</p>
+                <article class="content"><p><a href="http://bergwolf.blogspot.com/">几年未更的博客</a>坐落在Google blogger上,经过N天手动html-&gt;markdown的切换完成了几乎完全重写的内容迁移,今天博客终于在hyper.sh上线,更一篇纪念一下.</p>
 
-<p>As explained on <a href="http://en.wikipedia.org/wiki/Content_addressable_storage">wikipedia</a>, CAS is a mechanism for storing information that can be retrieved based on its content, not its storage location. It is typically used for high-speed storage and retrieval of fixed content.</p>
+<p>这次迁移我主要有这几方面的诉求:</p>
 
-<p>CAS Characteristics:</p>
+<ul>
+<li>静态博客,由之前的blogger所见即所得编辑,改为由markdown生成,这样对格式把控更精准</li>
+<li>blog内容用github repo管理, 同时host在github.io上, 这点通过github提供的<a href="https://github.com/bergwolf/bergwolf.github.io">github.io repo</a>实现</li>
+<li>git push的时候blog自动更新, 这点通过<a href="https://caddyserver.com/docs/git">Caddy的git addon</a>和github提供的webhook实现</li>
+<li>博客服务容器化, 向cloud native迈进</li>
+</ul>
 
-<ol>
-<li>Storage is identified by its content</li>
-<li>Designed to make the searching for a given document content very quick</li>
-<li>Works most efficiently on data that does not change often</li>
-</ol>
+<p>简而言之, Ink+github+Caddy+hyper.sh几乎完美的满足了我所有需求.</p>
 
-<p>Currently, most servers store images as common files and rely on filesystem&rsquo;s mechanism to optimize reading speed. However, filesystems are limited by POSIX standards and are optimized only for everyday usage. For large-scale image servers (or any application storing large amount of images), CAS will be a better choice (for the following reasons).</p>
+<hr />
 
-<ol>
-<li>deduplication: both block-level CAS and file-level CAS achieve efficient storage utilization by storing same data only once.</li>
-<li>Aggregation: log-structured extent-based on-disk object-stores, storing many images continuously in a single large file, resulting only one disk seek if index files are saved/managed in-memory (verses 2~3 disk seeks per read for common files).</li>
-</ol>
+<p>html-&gt;markdown的艰辛过程略去不表, 这里简单记录下hyper.sh上线步骤:</p>
 
-<p>My CAS implementation is written by the fact that most images are small files (~10MB) and there are huge amount of them on image servers. The implementation should speed up accessing of these image files. I am planing some benchmarks this week and hope to post them here soon.</p>
+<h3>1. 创建blog container image</h3>
 
-<p>After that, I will be writing a paper illustrating the opportunistic of applying CAS system to large-scale image servers. Then, I also want to explore the possibility of changing the interface (to, maybe dbus?) and make it runnable on common desktop, because current gnome/kde also read a lot of thumbnails. Maybe I can make it quicker somehow. Who knows :)</p>
+<p>Dockerfile:</p>
+
+<pre><code>[docker]$cat Dockerfile
+FROM ubuntu:xenial
+MAINTAINER bergwolf
+RUN apt-get update &amp;&amp; \
+        apt-get install -y git wget &amp;&amp; \
+        apt-get clean &amp;&amp; \
+        rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/* &amp;&amp; \
+        wget -O caddy.tgz &quot;https://caddyserver.com/download/build?os=linux&amp;arch=amd64&amp;features=git&quot; &amp;&amp; \
+        tar xzf caddy.tgz &amp;&amp; rm -f caddy.tgz &amp;&amp; mv caddy /srv/
+COPY entrypoint.sh /
+ENTRYPOINT [ &quot;/entrypoint.sh&quot; ]
+</code></pre>
+
+<p>entrypoint.sh:</p>
+
+<pre><code>[docker]$cat entrypoint.sh
+#!/bin/bash
+PASSWORD=password
+if [ $# -ge 1 ] ; then
+        if [ &quot;x$1&quot; != &quot;x${1#/}&quot;  ] ; then
+                exec &quot;$@&quot;
+        fi
+        PASSWORD=$1
+fi
+
+cat &gt; srv/Caddyfile &lt;&lt;-ENDFILE
+bergwolf.me {
+        gzip
+        root bergwolf.me
+        git {
+                repo https://github.com/bergwolf/bergwolf.github.io
+                hook /update ${PASSWORD}
+                hook_type github
+        }
+}
+ENDFILE
+
+cd srv
+./caddy -agree -email bergwolf@gmail.com -host bergwolf.me &gt; /dev/stdout 2&gt;/dev/stderr
+</code></pre>
+
+<p>创建并push docker image:</p>
+
+<pre><code>$ docker build . -t bergwolf/blog
+$ docker push bergwolf/blog
+</code></pre>
+
+<h3>2. 在hyper.sh上运行blog image</h3>
+
+<p>创建容器:</p>
+
+<pre><code>$ hyper run -d --restart=always -p 80:80 -p 443:443 --name=myblog bergwolf/blog &lt;webhookpwd&gt;
+</code></pre>
+
+<p>为容器设置IP:</p>
+
+<pre><code>$ hyper fip allocate 1
+&lt;IP&gt;
+$ hyper fip attach &lt;IP&gt; myblog
+</code></pre>
+
+<h3>3. 还有么?没有啦!</h3>
+
+<p>刨去html-&gt;markdown的艰辛,这次迁移的其他部分让我都觉得赏心悦目,难怪最近老有用户说爱上hyper :)</p>
+
+<p><img data-src="/images/hyper-in-love.jpg" hight="80%" width="80%" alt="In Love with Hyper" style="border:1px solid black"></img></p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -104,15 +169,10 @@
                 </section>
                 <section class="recommend">
                     
-                    <section class="nav prev more">
-                        <div class="head">上篇文章</div>
-                        <a class="link" href="/first-kernel-patch.html">First kernel patch</a>
-                    </section>
                     
-                    
-                    <section class="nav next more">
+                    <section class="nav next">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/easter-egg-in-opensuse-grub.html">Easter Egg in OpenSUSE Grub</a>
+                        <a class="link" href="/2013-new-start.html">2013, 新的起点</a>
                     </section>
                     
                 </section>
