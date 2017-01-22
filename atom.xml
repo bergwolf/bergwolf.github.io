@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2017-01-17T01:15:29+08:00</updated>
+  <updated>2017-01-22T10:57:27+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
+  <entry>
+    <title>Low-risk Drugs for G6PD Deficients</title>
+    <updated>2017-01-22T10:55:00+08:00</updated>
+    <id>tag:bergwolf.me,2017-01-22:/g6pd-safe-drugs.html</id>
+    <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.g6pd.org&#34;&gt;http://www.g6pd.org&lt;/a&gt; 的安全用药列表.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/g6pd-safe-drugs.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Drugs that should be avoided - Official List</title>
+    <updated>2017-01-22T10:05:00+08:00</updated>
+    <id>tag:bergwolf.me,2017-01-22:/g6pd-drugs-to-avoid.html</id>
+    <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.g6pd.org&#34;&gt;http://www.g6pd.org&lt;/a&gt; 的禁药列表.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/g6pd-drugs-to-avoid.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
   <entry>
     <title>迁移blog到Hyper.sh</title>
     <updated>2017-01-17T00:52:00+08:00</updated>
@@ -83,26 +103,6 @@
     <id>tag:bergwolf.me,2012-05-07:/2012-lsf-day1.html</id>
     <content type="html">&lt;p&gt;Summary of 2012 &lt;a href=&#34;https://events.linuxfoundation.org/events/lsfmm-summit&#34;&gt;Linux kernel LSF/MM summit&lt;/a&gt;, day 1.&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2012-lsf-day1.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>The Cloud</title>
-    <updated>2012-05-01T08:12:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-05-01:/the-cloud.html</id>
-    <content type="html">&lt;p&gt;In his poetry, I found freedom and liberty that can last for eternity.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/the-cloud.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>A letter to my former boss</title>
-    <updated>2012-03-27T16:04:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-03-27:/letter-to-my-former-boss.html</id>
-    <content type="html">&lt;p&gt;It was an old story. But I believe it best explains what I think of my employer.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/letter-to-my-former-boss.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
