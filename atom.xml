@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2017-01-23T12:15:18+08:00</updated>
+  <updated>2017-01-23T18:46:39+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
+  <entry>
+    <title>G6PD缺乏症</title>
+    <updated>2017-01-23T18:30:00+08:00</updated>
+    <id>tag:bergwolf.me,2017-01-23:/2017/01/23/g6pd.html</id>
+    <content type="html">&lt;p&gt;G6PD缺乏症简述.主要内容来自&lt;a href=&#34;https://en.wikipedia.org/wiki/Glucose-6-phosphate_dehydrogenase_deficiency&#34;&gt;wikipedia&lt;/a&gt;.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2017/01/23/g6pd.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
   <entry>
     <title>Low-risk Drugs for G6PD Deficients</title>
     <updated>2017-01-22T10:55:00+08:00</updated>
@@ -93,16 +103,6 @@
     <id>tag:bergwolf.me,2012-10-26:/2012/10/26/ext-fsync.html</id>
     <content type="html">&lt;p&gt;An in-depth look at design difference resulting performance gap between ext3 and ext4 filesystems.&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2012/10/26/ext-fsync.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>Quotes Shakespeare</title>
-    <updated>2012-05-21T18:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-05-21:/2012/05/21/quotes-shakespeare.html</id>
-    <content type="html"></content>
-    <link href="https://bergwolf.me/2012/05/21/quotes-shakespeare.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
