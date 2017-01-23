@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2017-01-22T10:57:27+08:00</updated>
+  <updated>2017-01-23T11:19:12+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
@@ -23,6 +23,26 @@
     <id>tag:bergwolf.me,2017-01-22:/g6pd-drugs-to-avoid.html</id>
     <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.g6pd.org&#34;&gt;http://www.g6pd.org&lt;/a&gt; 的禁药列表.&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/g6pd-drugs-to-avoid.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>对拳</title>
+    <updated>2017-01-20T00:30:00+08:00</updated>
+    <id>tag:bergwolf.me,2017-01-20:/对拳.html</id>
+    <content type="html">&lt;p&gt;浩宇住院了.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/对拳.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>迎接小生命</title>
+    <updated>2017-01-17T23:30:00+08:00</updated>
+    <id>tag:bergwolf.me,2017-01-17:/welcome-haoyu.html</id>
+    <content type="html">&lt;p&gt;每一对母子都是生死之交.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/welcome-haoyu.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -83,26 +103,6 @@
     <id>tag:bergwolf.me,2012-05-21:/quotes-shakespeare.html</id>
     <content type="html"></content>
     <link href="https://bergwolf.me/quotes-shakespeare.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>2012 LSF/MM Summit Summary - Day 2</title>
-    <updated>2012-05-07T02:54:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-05-07:/2012-lsf-day2.html</id>
-    <content type="html">&lt;p&gt;Summary of 2012 &lt;a href=&#34;https://events.linuxfoundation.org/events/lsfmm-summit&#34;&gt;Linux kernel LSF/MM summit&lt;/a&gt;, day 2.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2012-lsf-day2.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>2012 LSF/MM Summit Summary - Day 1</title>
-    <updated>2012-05-07T00:07:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-05-07:/2012-lsf-day1.html</id>
-    <content type="html">&lt;p&gt;Summary of 2012 &lt;a href=&#34;https://events.linuxfoundation.org/events/lsfmm-summit&#34;&gt;Linux kernel LSF/MM summit&lt;/a&gt;, day 1.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2012-lsf-day1.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
