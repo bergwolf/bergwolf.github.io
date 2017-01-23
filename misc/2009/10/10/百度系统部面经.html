@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="我的大学,">
+        <meta name="description" content="百度系统部面经">
+        <meta name="author" content="Bergwolf">
+        <title>百度系统部面经</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">百度系统部面经</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1255157280"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a></span>
+                </section>
+                <article class="content"><p>其实都过去半个月了，自己一直懒，没有写总结。。。</p>
+
+<p>简单写一点吧。实验室师兄内推的，所以免去了笔试环节。内推的时候我以为至少会10月份再面试，心想着不急，还有十一长假可以准备呢，结果刚刚第二天就通知下周面试，着实让我急了一阵。不过还好，项目不是很紧，所以花了不少时间去准备，虽然准备的问题基本没有问到。。。</p>
+
+<p>通知的下午2点普天7层面试，我到早了点，发短信找推荐我的师兄聊了会。师兄跟我特别强调自己会什么就说什么，不会就说不会，不要吹牛。这点我之前在看面经的时候也看到过。</p>
+
+<p>一面是位很和蔼的GG，这天面试的人很多，我们就在一个花台旁边坐下来聊了起来。问的都是分布式上的东东，主要集中在DFS的设计上，说到了一些Google的DFS可以优化的地方。其他的就问了问环境变量是如何工作的，这个问题正好我准备到了，于是blabla一番。这时面试地点换到了10层。10层仍然没有位置，于是找了个空沙发两人坐着又blabla了一会。</p>
+
+<p>一面结束后GG让我在那等一下，还有面试。哦，这里8一8百度的面试流程吧。之前我看的面经里面也有说到，一共是三面，一般来说三面一天面完，如果三个面试官都觉得可以的，就当场给offer，如果都觉得不行的话就当场据掉，如果意见不统一的话就进pending list。</p>
+
+<p>二面是位JJ，也非常nice。一来就说我的background和他们的需求非常match，弄得我心里一阵感激。JJ上来也问分布式，简单blabla一番后，开始问项目。因为我有写对Linux文件系统比较熟悉，就问了几个文件系统相关的问题，如ext2/3/4的区别，ext4的数据块分布结构，ext3如何保证磁盘数据一致性，日志文件系统是否能够完全保证数据一致性等问题。完了还说部门有分布式和kernel两个组，问我想去那个组，能不能去实习，说如果能去实习的话对以后拿户口有帮助之类，心里再次泛起一阵感激。</p>
+
+<p>二面结束后让我再等一下，还有三面。三面过来了两个GG，一看就知道是技术大牛的那种。前两面一直比较轻松，我心想这下危险了。三面从简历上的项目经历问起，这部分没什么问题，于是blabla。项目问完后就开始问内核，ext4的extent tree在磁盘上是什么数据结构。说实话这个问题我一直没考虑过。。。想了一会儿后放弃。。。出来之后才觉得自己当时傻了，简单画一画就知道是btree了。。。sigh。不过这只是开头，然后又问了ext2和ext3在块分配算法上有什么区别。在ext2分区上，命令<code>touch a</code>会让内核完成哪些操作，<code>echo &quot;hello&quot; &gt;&gt; a</code>又会完成哪些操作，<code>for i in $(seq 10000);do echo &quot;hello&quot; &gt;&gt; a;done</code>又会完成哪些操作。接着问ext4在这方面有什么改进，delayed allocator和以前的allocator有什么区别，有哪些好处和劣势,mballocator的分配算法等。还问了ext4的delayed allocator造成空文件的原因，这个问题以纠正我长久以来对delayed allocation的一个误区结束。这之后就没有什么问题了，kernel team的那位GG问我有没有什么要问的，我自我感觉表现的不怎么样，还是鼓起勇气问了下什么时候能出结果，GG说要等他们商量之后才知道。</p>
+
+<p>三面完了之后又过来了一位帅GG，自我介绍中知道原来是系统部的技术经理，仰视ing。寒暄了一阵后GG说现在还决定不了，要到10月中旬hr部门才能发正式的offer。我心里一下就凉了，想完了，这下进waiting list了。GG也看出了我的表情变化，微笑着说不过现在可以给我一个口头的。想不到leader还挺会逗人的。。。之后还是问有没有什么问题，能不能去实习之类的。然后留了下联系方式，说有什么问题可以直接给他打电话，再次感激ing。然后leader送我出去，我不是很放心，出门的时候再次跟leader确认了一下，leader说应该没问题，自己才放心一些。</p>
+
+<p>下电梯后给师兄发了个短信，说拿到口头offer了，改天请师兄吃饭。</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/misc/2009/11/01/2009-beijinglsf.html">2009 BeijingLSF小记</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/misc/2009/10/10/%e8%85%be%e8%ae%af%e5%85%ac%e5%8f%b8soso%e4%ba%a7%e5%93%81%e9%83%a8%e9%97%a8%e6%9a%91%e6%9c%9f%e5%ae%9e%e4%b9%a0%e6%80%bb%e7%bb%93.html">腾讯公司soso产品部门暑期实习总结</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

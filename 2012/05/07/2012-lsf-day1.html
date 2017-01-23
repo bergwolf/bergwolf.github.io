@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="LSF,">
+        <meta name="description" content="2012 LSF/MM Summit Summary - Day 1">
+        <meta name="author" content="Bergwolf">
+        <title>2012 LSF/MM Summit Summary - Day 1</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">2012 LSF/MM Summit Summary - Day 1</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1336320420"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/LSF/index.html">LSF</a></span>
+                </section>
+                <article class="content"><p>Earlier last month (April 1 and 2), I was in San Francisco to attend 2012 <a href="https://events.linuxfoundation.org/events/lsfmm-summit">Linux Storage and Filesystem Summit</a>. It was a great experience for me because I am a great fan of many of these kernel maintainers who have in-depth understanding of file systems and storage, and sitting under the same roof, discussing cutting edge technology topics, is just what I&rsquo;ve been dreaming of for many years.</p>
+
+<p>OK, enough stupid wording. Here is my summary for this event.</p>
+
+<p>The LSF/MM summit is a small by-invitation summit which focuses on collaboration and implementation. I was very lucky to be invited because of the work that I am doing in EMC, pushing Lustre client into mainline kernel. Also it is worth mentioning that EMC is silver sponsor for the event.</p>
+
+<p>The LSF/MM summit is a two-day event, and consists of three tracks (IO, FS and MM). The complete schedule can be found <a href="http://tinyurl.com/lsfmm">here</a>. I stayed in the filesystem track all the time so my summary will be mainly about discussions in the filesystem track. For discussions on IO and MM tracks, they can be found <a href="http://lwn.net/Articles/490114/">here</a> and <a href="http://lwn.net/Articles/490501/">here</a>.</p>
+
+<hr />
+
+<h2>Runtime filesystem consistency check</h2>
+
+<p>It is a <a href="http://www.eecg.toronto.edu/~ashvin/publications/recon-fs-consistency-runtime.pdf">FAST paper</a> written by Ashvin Goel and others from the University of Toronto. The main idea is to record some consistency invariants and check them between the filesystem and the block layer, so that errors can be found earlier at transaction commit point. The consistency invariants are predefined and there are 33 for ext3 in Recon, the PoC of runtime filesystem checker they built. A more detailed introduction of Recon can be found <a href="http://lwn.net/Articles/490291/">here</a>.</p>
+
+<h2>Writeback</h2>
+
+<p>Wu Fengguang started writeback discussion with his work on improving the writeback situation. Then he concluded his work on IO-less throttling, where the main intentions is to minimize seeks, get less lock contention and cache bouncing, lower latency, with impressive performance gains, minor regressions and lots of algorithm complexity.</p>
+
+<p>For direct reclaim, pageout work has been moved from direct reclaim to flusher threads. It also focuses dirty reclaim waits on dirtier tasks for the benefit of interactive performance. Dirty pages in the end of LRU are still a problem because scanning for them wastes lots of CPU. The he suggested adding a new LRU list just for tracking dirty page, and it requires a new page flag.</p>
+
+<p>Memory control groups have its problem with dirty limit mainly because there is only a global dirty limit, and flusher fairness is beyond control. There are only coarse options available such as limiting the number of operations that can be performed on a per-inode basis or limiting the amount of IO that can be submitted.</p>
+
+<p>The discussion then moved to buffer write blkcg IO control. Current blkcg IO control is useless with regard to buffer write, because blkcg throttles at summit_io(), where there is mostly no context of the writer. Fengguang made a suggestion and RFC patchsets to implement buffer write IO control in balance_dirty_pages. However Tejun Heo argued that blkcg should do its work in block layer, instead of messing up with mm layer. Also there are comments that the algorithm of balance_dirty_pages() is already very complex, doing IO controlling there will make it even more difficult to understand. The dis-agreement has been there for a long time and it couldn&rsquo;t reach conclusion soon so people askes the discussion to continue in MM track and it later moves on <a href="https://lkml.org/lkml/2012/4/3/314">on the mailing list</a>.</p>
+
+<h2>Writeback and Stable Pages</h2>
+
+<p>The same topic <a href="http://lwn.net/Articles/442355/">was discussed</a> in last year&rsquo;s LSF and the conclusion was to let writer wait when it wants to write a page that is under writeback. However Ted Ts&rsquo;o reported <a href="http://lwn.net/Articles/486311/">ext4 long latency</a> when Google started to use the code. In brief, waiting page writeback (to get stable pages) can lead to large process latency. And it is not necessary for every system. Stable pages are only required for some systems where things like checksums calculated on the page require that the page be unchanged when it actually gets written.</p>
+
+<p>Sage Weil and Boaz Harrosh made three options to handle the situation:</p>
+
+<ol>
+<li>re-issue pages that are changed during IO;</li>
+<li>wait on writeback for every page (current implementation);</li>
+<li>Do a COW on the page under writeback when it is written to.</li>
+</ol>
+
+<p>The first option was dropped instantly because it confuses storage that need stable page and is purely overhead for storage that doesn&rsquo;t need it.</p>
+
+<p>The third option was discussed on but the overhead of COW is unknown and there are some corner cases that need to be addressed like what to do if file is truncated after COW page is created. So the first step as suggested is to introduce some APIs to let storage tell filesystem if it needs stable page, and let filesystem tell storage if storage is supported. Then for cases where stable pages are unnecessary like Google&rsquo;s use, file system doesn&rsquo;t need to do anything to send stable pages. As for stable page support, some reporting method should be added to writeback code path to find out what workload are being affected and what those affects are. Then someone can propose on how to implement the COW solution and address all the corner cases.</p>
+
+<h2>Copy Offload</h2>
+
+<p>NetApp&rsquo;s Frederick Knight led copy offload session. The idea of copy offload is to allow SCSI devices to copy ranges of blocks without involving the host operating system. Copy offload has been in SCSI standard since SCSI-1 days. EXTENDED COPY (XCOPY) uses two descriptors for the source and destination and a range of blocks. It can be implemented in either push model (source sends the blocks to the target) or pull model (target pulls from source).</p>
+
+<p>TOKEN based copy is far more complex. Each token has a ROD (Representation of Data) that allows arrays to give an identifier for what may be a snapshot. A token represents a device and a range of sectors that the device guarantees to be stable. However, if the device doesn&rsquo;t support snapshotting and the region gets overwritten for any reason, the token can be declined by storage. It means that storage users have no idea of the lifetime of a token, and every time a token goes invalid, they need to either renew the token or do real data transfer.</p>
+
+<p>Token based copy is somewhat similar to NFS&rsquo;s <a href="http://tools.ietf.org/html/draft-lentini-nfsv4-server-side-copy-06">server side copy (NFSv4.2 draft)</a>. And it is suggested that token format need to be standardized to possibly allow copy offload from SCSI disk to CIFS/NFS volume.</p>
+
+<h1>Kernel AIO/DIO Interfaces</h1>
+
+<p>The first session in the afternoon was led by Dave Kleikamp who is trying to modify kernel AIO/DIO APIs to provide in-kernel interfaces. He changed iov_iter to make it handle both iovec (from userspace) and bio_vec (from kernel space). He modified loopback device to let it send AIO and therefore avoid caching in underlying filesystem. And people suggested that swap-over-NFS can be adapted to use the same API.</p>
+
+<h1>RAID engine Unification</h1>
+
+<p>Boaz implemented a generic RAID engine for pNFS object layout driver. Since the code is simple and efficient, he wants to push its usage and unify kernel RAID implementations. Currently besides Boaz&rsquo;s RAID implementation, there are two other RAID implementations, MD and btrfs. Boaz said that his implementation is more complete and support RAID stacking without extra data copy.</p>
+
+<p>However, it seems the benefit is not so obvious and people are hesitating to adopt it because current code works just good. Chris Mason suggested Boaz to start with MD because MD is much simpler than btrfs. If that works well, he can continue to change btrfs to use the new RAID engine.</p>
+
+<h1>xfstests</h1>
+
+<p>With many years of advocating, xfstests has somehow become the most used regression test suit for not just xfs, but also ext4 and btrfs. There are ~280 test cases and around 100 of them are filesystem independent. However, one nightmare is that all test files are numbered instead of properly named. So anyone who wants to use it need to read the test case and find out what it actually does. Also it need to be reorganized so that similar functions are grouped in a directory instead of lying flat like right now.</p>
+
+<p>So much for the first day. Here are some pictures of attendees taken by <a href="http://www.facebook.com/media/set/?set=a.3273446167813.139335.1617193264&amp;type=3">Chuck Level</a></p>
+
+<p><img data-src="/images/lsf-2012-speakers.png" hight="90%" width="90%" alt="speakers"></img></p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/2012/05/07/2012-lsf-day2.html">2012 LSF/MM Summit Summary - Day 2</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2012/05/01/the-cloud.html">The Cloud</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

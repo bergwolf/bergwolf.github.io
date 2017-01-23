@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="LSF,">
+        <meta name="description" content="CLSF 2011 - Day 1">
+        <meta name="author" content="Bergwolf">
+        <title>CLSF 2011 - Day 1</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">CLSF 2011 - Day 1</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1320087780"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/LSF/index.html">LSF</a></span>
+                </section>
+                <article class="content"><p>One year passed since last <a href="/CLSF-2010.html">CLSF 2010</a> in Shanghai. This year, CLSF is held in Nanjing and sponsored by Baidu and Fujitsu. And Coly has kindly built an official website for the event.</p>
+
+<p>The workshop started with Btrfs updates given by Fujitsu&rsquo;s Zefan Li. Fujitsu has been contributing a lot to btrfs development this year. The first important feature Fujitsu developed for btrfs is LZO transparent compression. Before, btrfs only uses Zlib but the infrastructure allows adding more compression algorithms. LZO consumes less CPU and is faster than Zlib. The current compression unit is extent (at most 160KB) and every RW needs to read/write whole extent. So the feature seems to be more suitable for SRSW use case.</p>
+
+<p>Another interesting feature added to btrfs is auto-defragment. Copy-on-write filesystems like btrfs/WAFL all suffer from file fragmentation. So btrfs tries to (sort of) solve it in a nice and easy way. When a page is written, btrfs tries to read in the extent around current page and mark pages dirty in memory. So later writeback can write continuous blocks and ondisk extents tend to be less fragmented. However, a side effect is that it causes more IO than necessary and may hurt random write performance. While the idea of auto-defrag is cool, defragmentation consumes resources and thus timing is very important. What is the best time for starting auto-defrag and how far it should go (e.g., 5 frags into 4 may not be worth doing at all) remains still a open question.</p>
+
+<p>Miao Xie also introduced btrfs tree log and sub-transaction feature. Before tree log, btrfs maintains a big transaction (default 30sec) and if user fsync one file, the whole transaction has to be committed, hurting very much the performance of other writers. With tree log, btrfs maintains a write-ahead on-disk log for each of such fsync operations. And when transaction commits, it discards all these logs. As a result, fsync one file will only result in writing back the file&rsquo;s dirty data in tree log and other writers can continue writing to the same transaction, which improves performance in many writers with fsync use case.</p>
+
+<p>One defect of tree log is that, when writing new logs, it also writes all old logs (again and again). The solution is to assign a sub-transaction id to each log and use it to avoid writing old logs. And it improves performance in large file many fsync use case.</p>
+
+<p>One question that we are all interested is when btrfs will be suitable for production. Currently the most concern is about btrfsck, which has been delayed for years. Although btrfs has built-in RAID and scrub (which rebuilds broken RAID block automatically), people still think fsck a must. Zefan explained that <a href="https://plus.google.com/105274031445877094012/about">Chris Mason</a> will demo btrfsck at LinuxCon later this month. The reason he (Chris) didn&rsquo;t release btrfsck for so long is that he was trying different designs/implementations and do not want to corrupt user data with half-done btrfsck. Good news is that Chris is pushing btrfs into Oracle&rsquo;s next release UBL.</p>
+
+<p>The last but most important question for btrfs is performance. According to Intel guys&rsquo; tests, btrfs is slower than ext4 in many cases. Some argued that btrfs presents many fancy features ext4 don&rsquo;t. But these features are more attractive to desktop users than to server users, and server users are the real force to push Linux kernel going forward these days.</p>
+
+<p>The second topic is Distributed/cluster storage and cloud, led by Novell&rsquo;s Zhang Jiaju. This is a general talk about open source cloud infrastructure. Distributed systems put a lot of pressure on DLM and sometimes make DLM itself too heavy. We also discussed why Lustre isn&rsquo;t wildly used outside of HPC market. Jiaju thought the most important reason is Lustre is not merged in Linux kernel thus enterprise users do not trust them as much as Kernel filesystems even like ceph.</p>
+
+<p>Jiaju maintains corosync in SUSE Linux and made an implementation of <a href="https://github.com/jjzhang/booth">Paxos</a>. Paxos came into people&rsquo;s eye because of <a href="http://labs.google.com/papers/chubby-osdi06.pdf">Google Chubby</a>. He also introduced a little about corosync&rsquo;s Totem. Totem performs better than Paxos when cluster membership doesn&rsquo;t change. But we all agree that quorum is not the best way to solve large cluster synchronization problem and that&rsquo;s why common Chubby cluster only have several machines.</p>
+
+<p>That&rsquo;s all for the morning. Bellow is we are continuing discussion during lunch break.
+<img src="data:image/gif;base64,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" data-src="/images/clsf-2011-lunch-break.jpg" alt="lunch break" /></p>
+
+<p>Taobao holds first two sessions in the afternoon.Taobao is using ext4 heavily in many of their servers and they are particularly interested in some features. First is Ted&rsquo;s bigalloc, which tries to allocate larger chunk of data and is useful for large sequential write applications like HDFS. One issue with bigalloc is directory. With bigalloc, minimal 1MB block for each directory is certainly a waste. <a href="http://www.weibo.com/pagefault">Ma Tao</a> has sent out <a href="http://lwn.net/Articles/464510/">preview patches</a> , the main idea is to make use of the inode xattr space to store the inline data.</p>
+
+<p>Metadata checksum, snapshot and compression are also in Taobao&rsquo;s eyes. Meta checksum is mainly for debug purpose. When file system corrupts, people can first check meta checksum. If checksum doesn&rsquo;t agree, it is very likely a disk problem instead of file system bug. However, it doesn&rsquo;t help no journal mode. For snapshot, <a href="http://weibo.com/xiaoqiangnk">Yang Yongqiang</a> is actively working on it.</p>
+
+<p>The third topic in the afternoon is block layer updates, led by Li Shaohua. The most important change in block layer is the dropping of IO barriers, in favor of FLUSH/FUA. IO barrier has been there for a very long time. They are a concept in the block layer, implemented via FLUSH/FUA and serve two purposes: request ordering and forced flushing to physcial medium. Both block layer and disk cache may queue/reorder io requests. IO barriers ensure preceding requests are processed before the barrier and following requests after. Also they ensure that all data in disk write cache are flushed before returning.</p>
+
+<p>IO barriers are well-known as performance killers. However, enforcing ordering with IO barriers at block layer is more than enough. Filesystems just want to ensure some important requests to get to disk, instead of EVERYTHING sent to block layer privier to IO barriers. Filesystems should concern themselves with ordering, since that&rsquo;s where the information is, and not dump that problem into the block layer. A filesystem which wants operations to happen in a specific order will simply need to issue them in the proper order, waiting for completion when necessary. The block layer can then reorder requests at will.</p>
+
+<p>The resolution is to export FLUSH/FUA and let filesystems decide. Therefore REQ_HARDBARRIER no longer exists, while REQ_FLUSH and REQ_FUA are added. REQ_FLUSH request forces the write cache to be flushed before beginning the operation, and REQ_FUA means the data associated with the request itself must be committed to persistent media by the time the request completes.</p>
+
+<p>So the procedure of write has changed from:</p>
+
+<pre><code>submit_bio(WRITE_BARRIER)
+other reqs -&gt; (wait)preflush -&gt; (wait)bio reqs-&gt; (wait)postflush -&gt; other reqs
+</code></pre>
+
+<p>to:</p>
+
+<pre><code>submit_bio(WRITE_FLUSH_FUA)
+other reqs -&gt; preflush -&gt; other reqs -&gt; (preflush finishes) bio reqs -&gt; other reqs -&gt; (bio reqs finish) postflush
+</code></pre>
+
+<p>For both cases, if device supports FUA, the bio reqs are issued with REQ_FUA flag and the postflush is omitted. Apparently, the performance gain comes from the fact that one transaction on longer need to wait for IO requests of other transactions, at the cost of letting file systems maintain the dependency of different io requests.</p>
+
+<p>The last session is a from industry session led by Huawei&rsquo;s chief scientist Hu Ziang. Ziang asked some questions for their engineers and then introduced Huawei&rsquo;s Linux strategy. Huawei used to be a very closed company but now they are seeking to get open and embrace Linux and open source. They will build a very large Linux developer team in near future. Good news for China Linux community.</p>
+
+<p>That&rsquo;s all for the first day of excitement.
+<img src="data:image/gif;base64,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" data-src="/images/clsf-2011-day1-discussion.jpg" alt="discussion" /></p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/2011/11/01/clsf-2011-day2.html">CLSF 2011 - Day 2</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2011/09/02/x86-calling-conversion.html">X86 Calling Conversion</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

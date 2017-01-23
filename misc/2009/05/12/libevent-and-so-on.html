@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="TECH,">
+        <meta name="description" content="libevent and so on">
+        <meta name="author" content="Bergwolf">
+        <title>libevent and so on</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">libevent and so on</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1242125400"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
+                </section>
+                <article class="content"><p>Since we need a HTTP server to provide efficient service to all kinds of clients, I started to look into some lightweight open source solutions. The first item that jumps into my eyes is libevent, because I happen to read a blog of a facebook developer&rsquo;s, stating that facebook is using libevent as a HTTP server in their haystack photo storage service.</p>
+
+<p>Libevent is a lightweight event driven library wildly used in many applications, such as memcached and tor. Libevent has simple but efficient HTTP support. Here is a sample code building a simple HTTP server with evhttp:</p>
+
+<pre><code>#include &lt;sys/queue.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/socket.h&gt;
+#include &lt;netdb.h&gt;
+
+#include &lt;string.h&gt;
+#include &lt;stdio.h&gt;
+
+#include &lt;evhttp.h&gt;
+
+void ocr_handler(struct evhttp_request *req, void *arg)
+{
+ struct evbuffer *buf;
+ struct evkeyval *header;
+
+ TAILQ_FOREACH(header, req-&gt;input_headers, next) {
+  fprintf(stdout, &quot;key:%s\tvalue:%s\n&quot;, header-&gt;key, header-&gt;value);
+ }
+}
+
+int main(int argc, char **argv)
+{
+ int err;
+ struct evhttp *httpd;
+ struct event_base *evbase;
+ int port = 1234;
+
+ evbase = event_init();
+
+ fprintf(stderr, &quot;event method: %s\n&quot;, event_base_get_method(evbase));
+
+ httpd = evhttp_new(evbase);
+ if ((err = evhttp_bind_socket(httpd, NULL, port)) &lt; 0) {
+  fprintf(stderr, &quot;error binding http server to port %d\n&quot;, port);
+  return -1;
+ }
+
+ /* set callback for &quot;/&quot; */
+ evhttp_set_cb(httpd, &quot;/&quot;, ocr_handler, NULL);
+
+ /* Set a send callback for all other requests. */
+ evhttp_set_gencb(httpd, NULL, NULL);
+
+ event_base_dispatch(evbase);
+
+ evhttp_free(httpd);
+ event_base_free(evbase);
+ return 0;
+}
+</code></pre>
+
+<p>However, as I looked into the library in details and wrote some test programs, it turns out that life is not that easy. I tried to dynamically create threads to serve incoming HTTP requests, but the code didn&rsquo;t work as I thought. After searching for a while, I found the problem:</p>
+
+<blockquote>
+<p><em>Steven Grimm:</em><br />
+What libevent doesn&rsquo;t support is sharing a libevent instance across threads. It works just fine to use libevent in a multithreaded process where only one thread is making libevent calls.</p>
+</blockquote>
+
+<p>Therefore, to use libevent in a multi-threaded program, we should create each thread a event base when initialising the program and call ev_set_base() after ev_set() but before ev_add(). Then we will have a thread pool to serve HTTP requests. There will be a main thread listening to all incoming HTTP requests. When a request comes, it passes the request to some thread from the thread pool and wakes it up to handle the request.</p>
+
+<p>Although this will work, we somehow end up with a master/worker thread architecture, where the main thread handles all reads from netwrok. This will certainly be a bottleneck when there are thousands of clients(think <a href="http://www.kegel.com/c10k.html">the C10K problem</a>). I don&rsquo;t know how the facebook guys deal with this problem(maybe they patched libevent?:), But IMO, using an evhttp dispacher in a multi-threaded process, we&rsquo;ll end up this way.</p>
+
+<p>So, currently, I&rsquo;m planning to look at other solutions like lighttpd before making any decision on the server architecture.</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/misc/2009/06/19/tesseract-ocr-jpeg-support-added.html">tesseract-ocr jpeg support added</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/misc/2009/04/28/first-glance-at-tesseract-ocr.html">First Glance at tesseract-ocr</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

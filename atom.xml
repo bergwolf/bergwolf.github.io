@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2017-01-23T11:19:12+08:00</updated>
+  <updated>2017-01-23T12:14:24+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
@@ -10,9 +10,9 @@
   <entry>
     <title>Low-risk Drugs for G6PD Deficients</title>
     <updated>2017-01-22T10:55:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-22:/g6pd-safe-drugs.html</id>
+    <id>tag:bergwolf.me,2017-01-22:/2017/01/22/g6pd-safe-drugs.html</id>
     <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.g6pd.org&#34;&gt;http://www.g6pd.org&lt;/a&gt; 的安全用药列表.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/g6pd-safe-drugs.html"></link>
+    <link href="https://bergwolf.me/2017/01/22/g6pd-safe-drugs.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -20,9 +20,9 @@
   <entry>
     <title>Drugs that should be avoided - Official List</title>
     <updated>2017-01-22T10:05:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-22:/g6pd-drugs-to-avoid.html</id>
+    <id>tag:bergwolf.me,2017-01-22:/2017/01/22/g6pd-drugs-to-avoid.html</id>
     <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.g6pd.org&#34;&gt;http://www.g6pd.org&lt;/a&gt; 的禁药列表.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/g6pd-drugs-to-avoid.html"></link>
+    <link href="https://bergwolf.me/2017/01/22/g6pd-drugs-to-avoid.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -30,9 +30,9 @@
   <entry>
     <title>对拳</title>
     <updated>2017-01-20T00:30:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-20:/对拳.html</id>
+    <id>tag:bergwolf.me,2017-01-20:/2017/01/20/对拳.html</id>
     <content type="html">&lt;p&gt;浩宇住院了.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/对拳.html"></link>
+    <link href="https://bergwolf.me/2017/01/20/对拳.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -40,9 +40,9 @@
   <entry>
     <title>迎接小生命</title>
     <updated>2017-01-17T23:30:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-17:/welcome-haoyu.html</id>
+    <id>tag:bergwolf.me,2017-01-17:/2017/01/17/welcome-haoyu.html</id>
     <content type="html">&lt;p&gt;每一对母子都是生死之交.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/welcome-haoyu.html"></link>
+    <link href="https://bergwolf.me/2017/01/17/welcome-haoyu.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -50,9 +50,9 @@
   <entry>
     <title>迁移blog到Hyper.sh</title>
     <updated>2017-01-17T00:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-17:/blog-migration-to-hyper.html</id>
+    <id>tag:bergwolf.me,2017-01-17:/2017/01/17/blog-migration-to-hyper.html</id>
     <content type="html">&lt;p&gt;一直口水我司优秀90后岩松同学写的静态博客构建工具&lt;a href=&#34;http://www.chole.io/&#34;&gt;Ink&lt;/a&gt;,最近仔细研读&lt;a href=&#34;https://wangxu.me/meta/2016/09/24/blog-to-hyper/&#34;&gt;CTO的博客&lt;/a&gt;之后决定把我的博客也迁移到Ink+Hyper.sh上,吃一下自己的狗粮^_^&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/blog-migration-to-hyper.html"></link>
+    <link href="https://bergwolf.me/2017/01/17/blog-migration-to-hyper.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -60,9 +60,9 @@
   <entry>
     <title>2013, 新的起点</title>
     <updated>2013-01-01T01:58:00+08:00</updated>
-    <id>tag:bergwolf.me,2013-01-01:/2013-new-start.html</id>
+    <id>tag:bergwolf.me,2013-01-01:/2013/01/01/2013-new-start.html</id>
     <content type="html">&lt;p&gt;想不到,这会是我长久以来的最后一篇.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2013-new-start.html"></link>
+    <link href="https://bergwolf.me/2013/01/01/2013-new-start.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -70,9 +70,9 @@
   <entry>
     <title>2012, 这一年</title>
     <updated>2012-12-31T23:59:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-12-31:/2012-summary.html</id>
+    <id>tag:bergwolf.me,2012-12-31:/2012/12/31/2012-summary.html</id>
     <content type="html">&lt;p&gt;又一年.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2012-summary.html"></link>
+    <link href="https://bergwolf.me/2012/12/31/2012-summary.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -80,9 +80,9 @@
   <entry>
     <title>正能量</title>
     <updated>2012-10-29T17:51:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-10-29:/正能量.html</id>
+    <id>tag:bergwolf.me,2012-10-29:/2012/10/29/正能量.html</id>
     <content type="html">&lt;p&gt;越是脆弱的时候，越要让自己浑身充满正能量。&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/正能量.html"></link>
+    <link href="https://bergwolf.me/2012/10/29/正能量.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -90,9 +90,9 @@
   <entry>
     <title>ext3/4 and fsync</title>
     <updated>2012-10-26T03:20:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-10-26:/ext-fsync.html</id>
+    <id>tag:bergwolf.me,2012-10-26:/2012/10/26/ext-fsync.html</id>
     <content type="html">&lt;p&gt;An in-depth look at design difference resulting performance gap between ext3 and ext4 filesystems.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/ext-fsync.html"></link>
+    <link href="https://bergwolf.me/2012/10/26/ext-fsync.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -100,9 +100,9 @@
   <entry>
     <title>Quotes Shakespeare</title>
     <updated>2012-05-21T18:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-05-21:/quotes-shakespeare.html</id>
+    <id>tag:bergwolf.me,2012-05-21:/2012/05/21/quotes-shakespeare.html</id>
     <content type="html"></content>
-    <link href="https://bergwolf.me/quotes-shakespeare.html"></link>
+    <link href="https://bergwolf.me/2012/05/21/quotes-shakespeare.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>

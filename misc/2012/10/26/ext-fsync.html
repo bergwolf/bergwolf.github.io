@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="TECH,">
+        <meta name="description" content="ext3/4 and fsync">
+        <meta name="author" content="Bergwolf">
+        <title>ext3/4 and fsync</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">ext3/4 and fsync</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1351192800"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a></span>
+                </section>
+                <article class="content"><p>Our team met a problem of the &ldquo;infamous&rdquo; ext3 slowless on fsync() calls. We solved it rather easily by switching to ext4. But one might ask, WTF is going on with ext3 fsync() performance? And why simply switching to ext4 solves it at all?</p>
+
+<p>I googled some time but found no obvious explanations nor documents about why ext4 outperforms ext3 in fsync-workloads. So I had to do it RTFC way.</p>
+
+<p>The phenomenon is obvious. Given a workload that thread A is sequentially extending a file with large chunk of data, and another thread B is doing periodical fsync() calls, the fsync() call is much slower on ext3 than on ext4. ext3 fsync() tries to write back pages that is dirtied by thread A, and while it writes back, more pages are dirtied by thread A and need to be written back. This creates quite large latency for fsync() on ext3.</p>
+
+<p>OTOH, ext4 (with default options) doesn&rsquo;t have such problem.</p>
+
+<h1>But WHY?</h1>
+
+<p>We know that ext3 and ext4 share similar design principles but they are in fact two different file systems. The secret lies in their backing journal implementation and one key feature that comes with ext4, delayed allocation.</p>
+
+<p>As we know, ext4 is built upon jbd2 which is a successor of ext3&rsquo;s building block, jbd. While jbd2 inherits a lot of designs from jbd, one thing that is changed is how data=ordered mode implemented. data=ordered is an option about how ext3/4 manages data/metadata ordering. From Documentation/filesystems/ext4.txt:</p>
+
+<pre><code>* ordered mode
+In data=ordered mode, ext4 only officially journals metadata, but it logically
+groups metadata information related to data changes with the data blocks into a
+single unit called a transaction.  When it's time to write the new metadata
+out to disk, the associated data blocks are written first.  In general,
+this mode performs slightly slower than writeback but significantly faster than journal mode.
+</code></pre>
+
+<p>ext3/4 both implements this data=ordered mode and set it as default. However, there is a small difference between how it is implemented in jbd and jbd2.</p>
+
+<p>In jbd/jbd2, when a transaction is being committed, they call journal_submit_data_buffers() to writeback dirty data associated with current transaction.</p>
+
+<p>In jbd&rsquo;s journal_submit_data_buffers(), it loops agains commit_transaction-&gt;t_sync_datalist and relies on jbd buffer head to ensure that all data has been written back.</p>
+
+<p>In jbd2&rsquo;s journal_submit_data_buffers(), it implements data=ordered via inodes instead of jbd buffer heads. All inodes touched by the committing transaction is tracked in commit_transaction-&gt;t_inode_list and jbd2 just loops to write back each of them. There is also a small trick, jbd2 uses writepage instead of writepages to write back each inode mapping. The reason behind this is, that ext4&rsquo;s da_writepages will do block allocation, while writepage only writes back allocated blocks.</p>
+
+<p>So, see the tricks? With ext4 data=ordered, fsync() in thread B will only write back data blocks that are already allocated. And with ext4&rsquo;s delayed allocation, most pages dirtied by thread A are not allocated with blocks so won&rsquo;t be written back by jbd2. While for pages dirtied by thread B, they are written back via da_writepages in ext4_sync_file() that calls filemap_write_and_wait_range().</p>
+
+<p>So this is really tricky, because even for ext4, it only works for data=ordered mode and delayed allocation enabled. Also if thread A is not extending the file but rather over writing, ext4 is close to ext3. :)</p>
+
+<p>That&rsquo;s all.</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/misc/2012/10/29/%e6%ad%a3%e8%83%bd%e9%87%8f.html">正能量</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/misc/2012/05/21/quotes-shakespeare.html">Quotes Shakespeare</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="我的大学,生命的歌声,">
+        <meta name="description" content="腾讯公司soso产品部门暑期实习总结">
+        <meta name="author" content="Bergwolf">
+        <title>腾讯公司soso产品部门暑期实习总结</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">腾讯公司soso产品部门暑期实习总结</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1255142040"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a><a class="tag" href="/tag/%e7%94%9f%e5%91%bd%e7%9a%84%e6%ad%8c%e5%a3%b0/index.html">生命的歌声</a></span>
+                </section>
+                <article class="content"><p>It is said that a starting &ldquo;so&rdquo; will give me valuable micro-seconds to put one more thought on a rational article.</p>
+
+<p>So, I&rsquo;m gonna blog about my summer internship at soso product center of Tencent Inc, finally.</p>
+
+<p>标题太严肃，所以酸一段E文，调节调节:)</p>
+
+<p>在腾讯的实习时间不长，从7月22日入职到8月30日离开，前后只有一个月多点。但是，我认为我度过了一段很充实，也很开心的时间。</p>
+
+<p>运营管理组是个非常有活力的项目组。我的mentor（貌似也是组内很多人的mentor）kypoyin非常有才华和远见，他一手主导和推动了分布式文件系统和mapreduce项目的设计和开发，而且总是能站在一定的高度看问题，把很大的一个工程梳理得井井有条。在他身边做事会有种自己也跟着变得更聪明的感觉：）</p>
+
+<p>组长dave是位很和蔼的头儿，对下属基本使用自觉管理方法。soso自己的搜索引擎上线的时候还亲自连续通宵值班，敬业精神是在可敬。</p>
+
+<p>qqzhang属于特别勤奋的那种，据说工作一年多，绝大部分时间是晚上10点回家。我查过svn log，qqzhang贡献了将近一半的commit，绝对猛男！我写complexIO的时候kypo很忙，很多问题都是找qqzhang帮忙解决的，再次真诚地感谢一下：）</p>
+
+<p>reno不愧是北大高才生，基础超级扎实，对所有自己涉猎的问题都理解深刻，各种问题到了他这里都不再是问题，名副其实的问题终点站。</p>
+
+<p>vino姐姐是组内的开心果，我报到的第一天的午饭就是vino带我吃的桂林米粉，第一次吃这么好吃的米粉。vino人非常好，特别亲切，一起出去吃饭的时候总是很大方的贡献自己的iphone给大家玩游戏，某次还突然跟我说你去买一个iphone吧，弄得我一脸迷茫。可爱之极。</p>
+
+<p>xuekouying(抱歉因为觉得你的名字很好听，我一直不记得你的nickname)是坐在我帮边的一位很踏实的JJ，对于各种自己不清楚的问题都很努力地去学习。记得高中的时候班主任告诉我们什么样的人可以去做科学家的时候说，不是最聪明的人也不是知识最丰富的人可以做科学家，只有不断探索，不断学习的人才能成为科学家。相信xuekouying会在数据挖掘的路上越走越好。</p>
+
+<p>warmer是在我入职两个星期后从深圳培训回来的，emacs大牛。一直认为会玩emacs的都是神人，warmer果然不负这个论断。warmer的奢侈品小键盘也着实让大家眼红了一把，米人啊！</p>
+
+<p>其他的同事因为不是很熟悉，这里就不一一列举了。大家平时最多的消遣活动就是玩桌上足球。我第一次玩的时候是和kypo搭档，结果被reno和qq两人剃了光蛋，真是对不起kypo，害得你陪着我成为组内的垫底记录保持者。。。不过我经过一个月的锻炼，已经可以在后卫线上独当一面了。当然前锋还不行，中场有五个小人，我还控制不过来。让我非常感动的是，在我离开的那天晚上，组内的同事们还非常热心的开party为我送别。一行人一起K歌然后出去吃夜宵直到11点才散去。这真是个让人舍不得的集体。</p>
+
+<p>实习的这段时间里自己也确实做了些事情，大部分时间是工作到晚上9点以后才回去的，偶尔周末也加加班，完成的任务包括：</p>
+
+<ol>
+<li>DFS(Distributed File System)与本地文件系统的接口封装</li>
+<li>DFS merge功能的设计实现</li>
+<li>DFS 移植到FUSE (Filesystem in USErspace)</li>
+<li>mapreduce接口类序列化</li>
+<li>mapreduce的缓存服务DataCache的设计和实现</li>
+</ol>
+
+<p>回头看一下，这里面的1和4后来都被返工了。1是因为自己当时对接口也不熟悉设计得太烂(sigh。。。)。4是因为mapreduce的接口最初设计得不是很合理，后来完全推翻重做。通过这些任务，我对google的GFS和mapreduce设计框架有了大致的认识，了解到这样的大型基础架构的设计要点，可以说在分布式存储和计算方面获得了很好的实践经验。当然也犯过错误，我对DFS client的一个判断语句的修改导致不能传输大文件，这个bug甚至影响到了我离开后的一个演示任务，实在是对不住各位同事的努力，以后有机会一定请大家吃饭赔罪。这个问题也反映出我对自己的代码测试不够充分的问题，这点是我必须要注意的，以后对提交的代码一定要做充分的测试。</p>
+
+<p>总的说来，这段时间我过得非常开心，尽管有时候很忙也有些累，但是过得很充实，能够真真切切地感受到自己的成长。一个不断成长的自己，这也是我一直的追求。感谢上天给我这么好的机会，和一群很有卓越见识且心地善良的人一起工作，回想起来，这也是我当初选择计算机专业的原因。最后套用vino的blog标题做结束语，C&rsquo;est la vie，我喜欢这样的生活。</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/misc/2009/10/10/%e7%99%be%e5%ba%a6%e7%b3%bb%e7%bb%9f%e9%83%a8%e9%9d%a2%e7%bb%8f.html">百度系统部面经</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/misc/2009/09/18/glibc-malloc.html">glibc malloc implementation</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

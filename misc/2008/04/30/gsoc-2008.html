@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="我的大学,">
+        <meta name="description" content="GSoC 2008申请总结">
+        <meta name="author" content="Bergwolf">
+        <title>GSoC 2008申请总结</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">GSoC 2008申请总结</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1209492600"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a></span>
+                </section>
+                <article class="content"><p>这几天项目要中期验收，实验室抓的真紧。。。。今晚终于找到时间静下心来好好总结一下。</p>
+
+<p>先简单介绍下，这次google summer of code我申请的是由colyli指导的<a href="http://en.opensuse.org/Summer_of_Code_2008#enable_ext4_file_system_as_boot_partition">enable ext4 file system as boot partition</a>，我的申请主页在 <a href="http://bergwolf.googlepages.com/grub4ext4">http://bergwolf.googlepages.com/grub4ext4</a> ，项目主页(待建)在 <a href="http://code.google.com/p/grub4ext4/">http://code.google.com/p/grub4ext4/</a> 。这么设置是因为google给了一个proposal的例子就是这样的——用一个blog存放开发过程，用公开的repository保存项目代码。</p>
+
+<p>整个申请过程主要分为三个阶段：前期准备，写proposal阶段和ranking阶段。</p>
+
+<h2>1. 前期准备</h2>
+
+<p>因为上学期就打算做这个grub4ext4的项目，我在寒假期间看了一些grub legacy的代码，主要集中在stage2目录下，同时看了一些前人对grub源码的分析文档。这学期开学后我在mailling list上发过一篇总结。这篇总结也实际上成为我的proposal中grub部分的雏形，当时也不知道这个项目会申请成为SoC项目。</p>
+
+<p>或许我这只是特例，因为很早就开始接触相关的东西。但是想想mentor和organization都肯定更愿意把项目交给熟悉项目背景的人，所以多参与开源项目，多接触开源社区还是有好处的^_^</p>
+
+<h2>2. 写proposal阶段</h2>
+
+<p>这阶段我最大的两个感悟是：多和mentor接触，多和一起申请的人接触。</p>
+
+<p>这期间我完成proposal初稿后发给colyli看过，colyli给了很多很有价值的意见，十分感谢。这些意见和建议让我对项目的思路有了很多新的认识，这些都体现在了最后的成稿中。proposal中不能有抄袭这点也是coly告诉我的。那天我正在实验室干活，接到coly电话后赶紧修改。这可是救火啊。。。感激之心难以言寓～～～</p>
+
+<p>freenode上有个gsoc的channel，这上面不仅有正在申请的学生，还有不少mentor和google工作人员，是个很好的交流的地方。我写proposal的那几天几乎成天挂在上面，即使不发言，偶尔看看别人的对话也能学到很多东西。例如有的mentor明确指出不接受proposal里面使用一些网络上常用的聊天用语(you=u之类)的人，所以写申请还是formal一些的好。</p>
+
+<p>另外要注意proposal的字数限制，这点是在申请的最后一天我在IRC上问的。回答的人是google人员，所以也应该算官方的说法。proposal有7500 character的限制，这里的字数是byte而不是word，而且包括空格。千万不要超过这个限制，因为超过限制的proposal会被truncate，即最后只有前7500 byte会被打分的mentor们看到，而超出部分直接丢弃。</p>
+
+<p>proposal的主要目的是说服mentor和google，让他们觉得你的项目值得做而且具有可行性。有人这么说，when you propose a project, the most important thing is how it will benefit to the community instead of how cool it is.虽然有些极端但也不无道理。至于如何说服，那就是八仙过海，各显神通的事了。</p>
+
+<p>proposal一定要包含的几点：自己对项目的理解和描述（多和mentor沟通是正确理解项目需求的重要方法）；提出可行的实现方案（在有初步构思后和mentor的交流由询问变为讨论，而讨论的结果往往就是可行的方案）；具体的开发计划（包含重要时间点和事件，让mentor们看了之后觉得这个方案确实可行）。</p>
+
+<p>我有位本科同学今年也在申请GSoC，他给了我几个他找到的前人的proposal。这些proposal也都包含了以上几个要点。在这里也要感谢这位同学对我的帮助，有空一定bg你。</p>
+
+<h2>3. ranking阶段</h2>
+
+<p>在过了application deadline之后就进入ranking in progress阶段。到了这一阶段实际上工作已经大部分做完了，就只是等待结果。不过按照google的说法，mentor还是可以在application page上提问，所以这段时间还是需要经常上去看看。</p>
+
+<p>当applicatin status由ranking in progress变为reviewer assigned的时候，你的proposal就已经由某个具体的mentor（很可能就是最后带你的mentor）审阅了。这说明这个organization已经在考虑要不要把你的申请提交给google了。</p>
+
+<p>当application status变为application accepted的时候，恭喜你，you are in！</p>
+
+<hr />
+
+<p>说一下我的申请感受：</p>
+
+<ol>
+<li>mentor是申请的关键。多和mentor交流不但有助于自己对项目的理解，也有助于mentor对你的了解。相信很少有mentor把项目交给一个交了一份proposal后就再也不出现的人。</li>
+<li>多和申请人交流。不同的人有不同的思考问题的方法，或许别人所想的就正是你欠缺的，讨论才能加深自己对项目和对自己的方案的理解。不要害怕竞争，google给每个项目计划了至少两个slot。如果你和竞争者都足够优秀，不要担心google会刷掉你们任何一个。</li>
+<li>注重细节。申请中有很多需要注意的细节，google的FAQ建议都看一遍。不要怕浪费时间，在每个细节上比别人多做一点，最后累积起来就是进步。不但申请GSoC，做人亦是如此。</li>
+</ol>
+
+<p>最后我要感谢Colyli，他在我的申请过程中给了我莫大的帮助，万分感谢，这之后肯定还有许多需要麻烦他的地方. GSoC申请成功对我而言不是一个终点而是一个起点，我面前还有一个充实且<strong>疯狂</strong>(coly语^_^)的夏天。我得好好prepare myself, and enjoy summer of code.</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/misc/2008/05/08/grub-legacy-root.html">grub legacy root命令执行过程详解</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/misc/2008/04/15/macbeth-act1-scene1.html">Macbeth Act 1 Scene 1</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>

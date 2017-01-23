@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+<script type="text/javascript">
+    var conn, reloadTimer, connectTimer;
+    var connect = function() {
+        conn = new WebSocket('ws://' + location.host + '/live');
+        conn.onmessage = function(event) {
+            if (event.data === 'change') {
+                if (reloadTimer) clearTimeout(reloadTimer);
+                reloadTimer = setTimeout(function() {
+                    window.location.reload();
+                }, 200);
+            }
+        };
+        conn.onclose = function() {
+            if (connectTimer) clearTimeout(connectTimer);
+            connectTimer = setTimeout(function() {
+                connect();
+            }, 1000);
+        };
+    };
+    connect();
+</script>
+
+
+        <meta name="keywords" content="我的大学,linuxfb,">
+        <meta name="description" content="2009年8月linuxfb.org版聚总结">
+        <meta name="author" content="Bergwolf">
+        <title>2009年8月linuxfb.org版聚总结</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">2009年8月linuxfb.org版聚总结</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1251686160"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/%e6%88%91%e7%9a%84%e5%a4%a7%e5%ad%a6/index.html">我的大学</a><a class="tag" href="/tag/linuxfb/index.html">linuxfb</a></span>
+                </section>
+                <article class="content"><p>到场人员名单：</p>
+
+<pre><code>gmoto &amp; gery: 做gsoc做了五个月，终于做完了，前几个月的苦瓜脸终于变成了笑脸，今天粉丝团就来了一个
+hzmangel: blabla,english 太快没有听清楚，未婚
+colyli: 忽悠大家来聊天，最近推的招牌是gmoto，希望大家多宣传
+JP: 1999 on gnome, preload oem work currently, Novell Linux desktop manager
+xt9876: 电子科学与技术，大四，完了三年Linux，在北邮人论坛，做过S3接口计算，平时做Linux相关，未婚
+wentws: xt9876同学，选了唐sir的课，对Linux感兴趣，接触一年左右，unmarried
+jackydude: 来了几次了，对coly, gmoto印象深刻，做过嵌入式，对gmoto工作非常感兴趣，gmoto粉丝
+jokerlee: 玩Linux快三年了，对底层感兴趣，最近在看kernel
+epico: from Novell, work on firefox for suse Linux.
+bergwolf: 计算机研三，未婚
+eMBee: BLUG友人
+robert: 从Intel来的嘉宾
+</code></pre>
+
+<hr />
+
+<p>感觉离上次版聚已经很久了的样子，呵呵。虽然已经到了八月的倒数第二天，我们八月的版聚终于还是成形。这次来的人不多，可是丝毫没有减少我们对开源对技术的兴趣。大家都非常踊跃地参与讨论，思想碰撞中有了不少美妙的火花。</p>
+
+<p>第一个topic是gmoto同学总结自己的GSoC。gmoto通过从一个夏天的努力（据gmoto本人批注，实际上这个夏天从春天开始，到秋天结束），终于顺利地完成了把opensuse移植到gdium上的任务。gmoto的面容也从开始的苦瓜脸（quoting colyli）转变成为现在欢乐的笑容。gmoto在大概一个半小时的时间中，从自己编译kernel，交叉编译base system开始，如数家珍地介绍了自己在这段时间里经历的种种磨难和考验，然后成功演示了opensuse on gdium。看着自己学生的工作成果在真机上顺利运行，coly同学露出了满意的笑容。同时恭喜gmoto同学顺利通过GSoC final evaluation!</p>
+
+<p>第二个topic是临时决定的－－由来自BLUG的友人eMBee介绍最近大家身边将要发生的一些events。首先是9月5日的coding for fun，然后是9月8日的blug meeting（big news：这次的blug meeting我们将迎来libc的maintainer Ulrich Drepper），接着是今年的free software day（eMBee诚邀大家去FSD演讲topic，有兴趣的童鞋请联系eMBee@freenode.net）。最后eMBee介绍了一个宣传使用互联网和开源软件做学术研究的组织wiserU－－他们目前需要懂计算机的同学去帮忙他们宣传，有兴趣的同学请联系eMBee）</p>
+
+<p>第三个topic是colyli介绍今年夏天在中科院参加的一个CPU cache design的training。coly从最简单的direct map cache介绍起，深入浅出地介绍了包括set-associate，multicolum cache在内的几种经典cache。由于在场的同学对这方面都有所了解，大家针对colyli的介绍展开了深入讨论，同时colyli沉稳地接受大家的挑战并一一解答了在座各位心中的疑惑。</p>
+
+<p>总的来说，这次久违的版聚再次给大家一种不虚此行的感觉。特别是在讨论cache design的过程中，详细的回味了早就丢在脑后的计算机组成原理，同时学习到了multicolum这种设计。感谢三位同学的精彩演讲，期待下次版聚。</p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    <section class="nav prev more">
+                        <div class="head">上篇文章</div>
+                        <a class="link" href="/misc/2009/09/18/glibc-malloc.html">glibc malloc implementation</a>
+                    </section>
+                    
+                    
+                    <section class="nav next more">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/misc/2009/08/15/opensuse-conf-reject.html">OpenSUSE conference proposal被拒</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>
