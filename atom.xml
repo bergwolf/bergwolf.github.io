@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2017-01-23T18:48:20+08:00</updated>
+  <updated>2017-04-29T19:29:34+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
+  <entry>
+    <title>More About G6PD Drugs</title>
+    <updated>2017-04-29T17:45:00+08:00</updated>
+    <id>tag:bergwolf.me,2017-04-29:/2017/04/29/more-about-g6pd-drugs.html</id>
+    <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.ihtc.org/patient/blood-disorders/other-hematological-disorders/g6pd/&#34;&gt;IHTC&lt;/a&gt; 的用药列表.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2017/04/29/more-about-g6pd-drugs.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
   <entry>
     <title>G6PD缺乏症</title>
     <updated>2017-01-23T18:30:00+08:00</updated>
@@ -93,16 +103,6 @@
     <id>tag:bergwolf.me,2012-10-29:/2012/10/29/正能量.html</id>
     <content type="html">&lt;p&gt;越是脆弱的时候，越要让自己浑身充满正能量。&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2012/10/29/正能量.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>ext3/4 and fsync</title>
-    <updated>2012-10-26T03:20:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-10-26:/2012/10/26/ext-fsync.html</id>
-    <content type="html">&lt;p&gt;An in-depth look at design difference resulting performance gap between ext3 and ext4 filesystems.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2012/10/26/ext-fsync.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
