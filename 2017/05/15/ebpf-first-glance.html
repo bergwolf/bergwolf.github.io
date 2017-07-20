@@ -45,10 +45,10 @@
 </script>
 
 
-        <meta name="keywords" content="生命的歌声,浩宇,">
-        <meta name="description" content="迎接小生命">
+        <meta name="keywords" content="TECH,KERNEL,">
+        <meta name="description" content="First Glance at eBPF/XDP">
         <meta name="author" content="Bergwolf">
-        <title>迎接小生命</title>
+        <title>First Glance at eBPF/XDP</title>
     </head>
     <body>
         <article class="container">
@@ -65,18 +65,101 @@
 </header>
 
             <article class="main article">
-                <h1 class="title">迎接小生命</h1>
+                <h1 class="title">First Glance at eBPF/XDP</h1>
                 <section class="info">
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1484667000"><span class="from"></span></span>
+                    <span class="date" data-time="1494856320"><span class="from"></span></span>
                     
-                    <span class="tags"><a class="tag" href="/tag/%e7%94%9f%e5%91%bd%e7%9a%84%e6%ad%8c%e5%a3%b0/index.html">生命的歌声</a><a class="tag" href="/tag/%e6%b5%a9%e5%ae%87/index.html">浩宇</a></span>
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a><a class="tag" href="/tag/KERNEL/index.html">KERNEL</a></span>
                 </section>
-                <article class="content"><p>经过8+13小时的努力,2017年1月17日晚21点27分,儿子浩宇来到世界上,52厘米,3985克.老婆很辛苦,我知道长达21小时连续宫缩阵痛对她瘦小的身体意味着什么,浩宇在她肚子里长这么大,顺产的过程必然艰难.当把浩宇放到老婆胸前的那一刻,老婆的表情在告诉我,这一切都是值得的.是的, <strong>一切都是值得的</strong>.</p>
+                <article class="content"><h2>Introduction</h2>
 
-<p><img data-src="/images/haoyun-birth-with-wife.jpg" data-rotate="90" hight="40%" width="40%" alt="It's Worth EVERYTHING"></img></p>
+<h2>Playard</h2>
+
+<h3>1. Preparation</h3>
+
+<h3>2. Simple Programe</h3>
+
+<hr />
+
+<p>html-&gt;markdown的艰辛过程略去不表, 这里简单记录下hyper.sh上线步骤:</p>
+
+<h3>1. 创建blog container image</h3>
+
+<p>Dockerfile:</p>
+
+<pre><code>[docker]$cat Dockerfile
+FROM ubuntu:xenial
+MAINTAINER bergwolf
+RUN apt-get update &amp;&amp; \
+        apt-get install -y git wget &amp;&amp; \
+        apt-get clean &amp;&amp; \
+        rm -fr /var/lib/apt/lists/* /tmp/* /var/tmp/* &amp;&amp; \
+        wget -O caddy.tgz &quot;https://caddyserver.com/download/build?os=linux&amp;arch=amd64&amp;features=git&quot; &amp;&amp; \
+        tar xzf caddy.tgz &amp;&amp; rm -f caddy.tgz &amp;&amp; mv caddy /srv/
+COPY entrypoint.sh /
+ENTRYPOINT [ &quot;/entrypoint.sh&quot; ]
+</code></pre>
+
+<p>entrypoint.sh:</p>
+
+<pre><code>[docker]$cat entrypoint.sh
+#!/bin/bash
+PASSWORD=password
+if [ $# -ge 1 ] ; then
+        if [ &quot;x$1&quot; != &quot;x${1#/}&quot;  ] ; then
+                exec &quot;$@&quot;
+        fi
+        PASSWORD=$1
+fi
+
+cat &gt; srv/Caddyfile &lt;&lt;-ENDFILE
+bergwolf.me {
+        gzip
+        root bergwolf.me
+        git {
+                repo https://github.com/bergwolf/bergwolf.github.io
+                hook /update ${PASSWORD}
+                hook_type github
+        }
+}
+ENDFILE
+
+cd srv
+./caddy -agree -email bergwolf@gmail.com -host bergwolf.me &gt; /dev/stdout 2&gt;/dev/stderr
+</code></pre>
+
+<p>创建并push docker image:</p>
+
+<pre><code>$ docker build . -t bergwolf/blog
+$ docker push bergwolf/blog
+</code></pre>
+
+<h3>2. 在hyper.sh上运行blog image</h3>
+
+<p>创建容器:</p>
+
+<pre><code>$ hyper run -d --restart=always -p 80:80 -p 443:443 --name=myblog bergwolf/blog &lt;webhookpwd&gt;
+</code></pre>
+
+<p>为容器设置IP:</p>
+
+<pre><code>$ hyper fip allocate 1
+&lt;IP&gt;
+$ hyper fip attach &lt;IP&gt; myblog
+</code></pre>
+
+<h3>3. 还有么?没有啦!</h3>
+
+<p>刨去html-&gt;markdown的艰辛,这次迁移的其他部分让我都觉得赏心悦目,难怪最近老有用户说爱上hyper :)</p>
+
+<p><img data-src="/images/hyper-in-love.jpg" hight="80%" width="80%" alt="In Love with Hyper" style="border:1px solid black"></img></p>
+
+<hr />
+
+<p>Credit: 迁移步骤大量参(chao)考(xi)<a href="https://wangxu.me/">王旭的博客</a></p>
 </article>
                 <section class="author">
                     <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
@@ -87,13 +170,13 @@
                     
                     <section class="nav prev more">
                         <div class="head">上篇文章</div>
-                        <a class="link" href="/2017/01/20/%e5%af%b9%e6%8b%b3.html">对拳</a>
+                        <a class="link" href="/2017/06/22/letter-to-haoyu-1.html">给浩宇的第一封信--关于名字</a>
                     </section>
                     
                     
                     <section class="nav next more">
                         <div class="head">下篇文章</div>
-                        <a class="link" href="/2017/01/17/ebpf-insightful-features.html">迁移blog到Hyper.sh</a>
+                        <a class="link" href="/2017/04/29/more-about-g6pd-drugs.html">More About G6PD Drugs</a>
                     </section>
                     
                 </section>
