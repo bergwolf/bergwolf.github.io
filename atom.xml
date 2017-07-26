@@ -1,42 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2017-07-20T11:14:31+08:00</updated>
+  <updated>2017-07-26T10:47:51+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
-  <entry>
-    <title>给浩宇的第一封信--关于名字</title>
-    <updated>2017-06-22T16:38:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-06-22:/2017/06/22/letter-to-haoyu-1.html</id>
-    <content type="html">&lt;p&gt;这是我给儿子浩宇的第一封信,讲诉浩宇名字的由来和父母对浩宇的祝福与期许.后续我会继续以这种方式给浩宇写信,希望浩宇在长大后能够回过头来看看,从而更深入地了解爸爸,这也是我对于我的父亲想做而没能做到的.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2017/06/22/letter-to-haoyu-1.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>First Glance at eBPF/XDP</title>
-    <updated>2017-05-15T21:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-05-15:/2017/05/15/ebpf-first-glance.html</id>
-    <content type="html">&lt;p&gt;I played a bit with XDP (&lt;a href=&#34;https://github.com/iovisor/bpf-docs/blob/master/Express_Data_Path.pdf&#34;&gt;eXpress Data Path&lt;/a&gt;) recently.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2017/05/15/ebpf-first-glance.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>More About G6PD Drugs</title>
-    <updated>2017-04-29T17:45:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-04-29:/2017/04/29/more-about-g6pd-drugs.html</id>
-    <content type="html">&lt;p&gt;来自&lt;a href=&#34;http://www.ihtc.org/patient/blood-disorders/other-hematological-disorders/g6pd/&#34;&gt;IHTC&lt;/a&gt; 的用药列表.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2017/04/29/more-about-g6pd-drugs.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
   <entry>
     <title>G6PD缺乏症</title>
     <updated>2017-01-23T18:30:00+08:00</updated>
@@ -90,19 +60,49 @@
   <entry>
     <title>迁移blog到Hyper.sh</title>
     <updated>2017-01-17T00:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-17:/2017/01/17/ebpf-insightful-features.html</id>
+    <id>tag:bergwolf.me,2017-01-17:/2017/01/17/blog-migration-to-hyper.html</id>
     <content type="html">&lt;p&gt;一直口水我司优秀90后岩松同学写的静态博客构建工具&lt;a href=&#34;http://www.chole.io/&#34;&gt;Ink&lt;/a&gt;,最近仔细研读&lt;a href=&#34;https://wangxu.me/meta/2016/09/24/blog-to-hyper/&#34;&gt;CTO的博客&lt;/a&gt;之后决定把我的博客也迁移到Ink+Hyper.sh上,吃一下自己的狗粮^_^&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2017/01/17/ebpf-insightful-features.html"></link>
+    <link href="https://bergwolf.me/2017/01/17/blog-migration-to-hyper.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
   </entry>
   <entry>
-    <title>迁移blog到Hyper.sh</title>
-    <updated>2017-01-17T00:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-17:/2017/01/17/blog-migration-to-hyper.html</id>
-    <content type="html">&lt;p&gt;一直口水我司优秀90后岩松同学写的静态博客构建工具&lt;a href=&#34;http://www.chole.io/&#34;&gt;Ink&lt;/a&gt;,最近仔细研读&lt;a href=&#34;https://wangxu.me/meta/2016/09/24/blog-to-hyper/&#34;&gt;CTO的博客&lt;/a&gt;之后决定把我的博客也迁移到Ink+Hyper.sh上,吃一下自己的狗粮^_^&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2017/01/17/blog-migration-to-hyper.html"></link>
+    <title>2013, 新的起点</title>
+    <updated>2013-01-01T01:58:00+08:00</updated>
+    <id>tag:bergwolf.me,2013-01-01:/2013/01/01/2013-new-start.html</id>
+    <content type="html">&lt;p&gt;想不到,这会是我长久以来的最后一篇.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2013/01/01/2013-new-start.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>2012, 这一年</title>
+    <updated>2012-12-31T23:59:00+08:00</updated>
+    <id>tag:bergwolf.me,2012-12-31:/2012/12/31/2012-summary.html</id>
+    <content type="html">&lt;p&gt;又一年.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2012/12/31/2012-summary.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>正能量</title>
+    <updated>2012-10-29T17:51:00+08:00</updated>
+    <id>tag:bergwolf.me,2012-10-29:/2012/10/29/正能量.html</id>
+    <content type="html">&lt;p&gt;越是脆弱的时候，越要让自己浑身充满正能量。&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2012/10/29/正能量.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>ext3/4 and fsync</title>
+    <updated>2012-10-26T03:20:00+08:00</updated>
+    <id>tag:bergwolf.me,2012-10-26:/2012/10/26/ext-fsync.html</id>
+    <content type="html">&lt;p&gt;An in-depth look at design difference resulting performance gap between ext3 and ext4 filesystems.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2012/10/26/ext-fsync.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
