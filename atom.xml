@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2018-07-25T18:39:49+08:00</updated>
+  <updated>2018-07-25T20:01:11+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
@@ -33,6 +33,16 @@
     <id>tag:bergwolf.me,2018-07-05:/2018/07/05/lc3-kata-containers-speech.html</id>
     <content type="html">&lt;p&gt;On Tuesday, June 26, I presented &lt;a href=&#34;https://lc32018.sched.com/event/ER8r/kata-containers-when-oci-meets-virtuliazation-tao-peng-hyperhq-inc&#34;&gt;Kata containers&lt;/a&gt; in the LC3 (LinuxCon, ContainerCon, CloudOpen) China 2018 conference.&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2018/07/05/lc3-kata-containers-speech.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
+  <entry>
+    <title>Hyper Open Source Presentation at Yunqi 2050 Conference</title>
+    <updated>2018-06-01T19:00:00+08:00</updated>
+    <id>tag:bergwolf.me,2018-06-01:/2018/06/01/yunqi-2050-speech.html</id>
+    <content type="html">&lt;p&gt;On Sat, May 26, I gave a presentation at Yunqi 2050 Conference about Hyper&amp;rsquo;s open source path.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2018/06/01/yunqi-2050-speech.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
@@ -93,16 +103,6 @@
     <id>tag:bergwolf.me,2017-01-17:/2017/01/17/blog-migration-to-hyper.html</id>
     <content type="html">&lt;p&gt;一直口水我司优秀90后岩松同学写的静态博客构建工具&lt;a href=&#34;http://www.chole.io/&#34;&gt;Ink&lt;/a&gt;,最近仔细研读&lt;a href=&#34;https://wangxu.me/meta/2016/09/24/blog-to-hyper/&#34;&gt;CTO的博客&lt;/a&gt;之后决定把我的博客也迁移到Ink+Hyper.sh上,吃一下自己的狗粮^_^&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2017/01/17/blog-migration-to-hyper.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>2013, 新的起点</title>
-    <updated>2013-01-01T01:58:00+08:00</updated>
-    <id>tag:bergwolf.me,2013-01-01:/2013/01/01/2013-new-start.html</id>
-    <content type="html">&lt;p&gt;想不到,这会是我长久以来的最后一篇.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2013/01/01/2013-new-start.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
