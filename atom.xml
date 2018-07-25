@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2018-07-25T17:49:11+08:00</updated>
+  <updated>2018-07-25T17:58:36+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
@@ -9,10 +9,10 @@
   </author>
   <entry>
     <title>Kata Containers Network Hotplug, and planttext</title>
-    <updated>2018-07-15T18:00:00+08:00</updated>
-    <id>tag:bergwolf.me,2018-07-15:/2018/07/15/kata-containers-network-hotplug.html</id>
+    <updated>2018-07-25T18:00:00+08:00</updated>
+    <id>tag:bergwolf.me,2018-07-25:/2018/07/25/kata-containers-network-hotplug.html</id>
     <content type="html">&lt;p&gt;We were discussing kata containers network hotplug design, and I found &lt;a href=&#34;https://www.planttext.com/&#34;&gt;a nice website&lt;/a&gt; to draw diagrams in a WYTIWYG (What You Think Is What You Get) style.&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2018/07/15/kata-containers-network-hotplug.html"></link>
+    <link href="https://bergwolf.me/2018/07/25/kata-containers-network-hotplug.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>

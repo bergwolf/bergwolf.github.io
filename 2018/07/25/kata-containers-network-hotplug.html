@@ -44,28 +44,6 @@
     var root = '';
 </script>
 
-<script type="text/javascript">
-    var conn, reloadTimer, connectTimer;
-    var connect = function() {
-        conn = new WebSocket('ws://' + location.host + '/live');
-        conn.onmessage = function(event) {
-            if (event.data === 'change') {
-                if (reloadTimer) clearTimeout(reloadTimer);
-                reloadTimer = setTimeout(function() {
-                    window.location.reload();
-                }, 200);
-            }
-        };
-        conn.onclose = function() {
-            if (connectTimer) clearTimeout(connectTimer);
-            connectTimer = setTimeout(function() {
-                connect();
-            }, 1000);
-        };
-    };
-    connect();
-</script>
-
 
         <meta name="keywords" content="TECH,Kata,">
         <meta name="description" content="Kata Containers Network Hotplug, and planttext">
@@ -92,7 +70,7 @@
                     <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
                     <a class="name" href="/about.me.html">Bergwolf</a>
                     
-                    <span class="date" data-time="1531648800"><span class="from"></span></span>
+                    <span class="date" data-time="1532512800"><span class="from"></span></span>
                     
                     <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a><a class="tag" href="/tag/Kata/index.html">Kata</a></span>
                 </section>
