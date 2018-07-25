@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2018-07-10T23:12:27+08:00</updated>
+  <updated>2018-07-25T17:49:11+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
+  <entry>
+    <title>Kata Containers Network Hotplug, and planttext</title>
+    <updated>2018-07-15T18:00:00+08:00</updated>
+    <id>tag:bergwolf.me,2018-07-15:/2018/07/15/kata-containers-network-hotplug.html</id>
+    <content type="html">&lt;p&gt;We were discussing kata containers network hotplug design, and I found &lt;a href=&#34;https://www.planttext.com/&#34;&gt;a nice website&lt;/a&gt; to draw diagrams in a WYTIWYG (What You Think Is What You Get) style.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2018/07/15/kata-containers-network-hotplug.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
   <entry>
     <title>Poems from Mary Shelley the Film</title>
     <updated>2018-07-10T18:00:00+08:00</updated>
@@ -93,16 +103,6 @@
     <id>tag:bergwolf.me,2012-12-31:/2012/12/31/2012-summary.html</id>
     <content type="html">&lt;p&gt;又一年.&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2012/12/31/2012-summary.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>正能量</title>
-    <updated>2012-10-29T17:51:00+08:00</updated>
-    <id>tag:bergwolf.me,2012-10-29:/2012/10/29/正能量.html</id>
-    <content type="html">&lt;p&gt;越是脆弱的时候，越要让自己浑身充满正能量。&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2012/10/29/正能量.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>

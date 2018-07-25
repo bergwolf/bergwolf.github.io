@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=1, minimum-scale=1, maximum-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google" value="notranslate">
+<meta name="robots" content="index,follow">
+
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bard&#39;s Gallery">
+<meta name="twitter:description" content="Into Something Rich and Strange">
+<meta name="twitter:image:src" content="https://bergwolf.me/images/avatar.png">
+
+<meta property="og:url" content="https://bergwolf.me">
+<meta property="og:title" content="Bard&#39;s Gallery">
+<meta property="og:description" content="Into Something Rich and Strange">
+<meta property="og:site_name" content="Bard&#39;s Gallery">
+<meta property="og:image" content="https://bergwolf.me/images/avatar.png">
+<meta property="og:type" content="website">
+<meta name="robots" content="noodp">
+
+<meta itemprop="name" content="Bard&#39;s Gallery">
+<meta itemprop="description" content="Into Something Rich and Strange">
+<meta itemprop="image" content="https://bergwolf.me/images/avatar.png">
+
+<link rel="canonical" href="https://bergwolf.me">
+
+<link rel="shortcut icon" href="/favicon.png">
+<link rel="apple-itouch-icon" href="/favicon.png">
+<link rel="stylesheet" href="/bundle/index.css">
+<script type="text/javascript">
+    var timeSinceLang = {
+        year: '年前',
+        month: '个月前',
+        day: '天前',
+        hour: '小时前',
+        minute: '分钟前',
+        second: '秒前'
+    };
+    var root = '';
+</script>
+
+
+        <meta name="keywords" content="TECH,Kata,">
+        <meta name="description" content="Kata Containers Network Hotplug, and planttext">
+        <meta name="author" content="Bergwolf">
+        <title>Kata Containers Network Hotplug, and planttext</title>
+    </head>
+    <body>
+        <article class="container">
+            <header class="header-wrap">
+  <a class="index" href="/">
+    <img class="logo" src="/images/avatar.png" />
+    Bard&#39;s Gallery
+  </a>
+  <ul class="menu">
+      <li class="menu-item"><a href="/archive.html">归档</a></li>
+      <li class="menu-item"><a href="/tag.html">标签</a></li>
+      <li class="menu-item"><a href="/atom.xml">订阅</a></li>
+  </ul>
+</header>
+
+            <article class="main article">
+                <h1 class="title">Kata Containers Network Hotplug, and planttext</h1>
+                <section class="info">
+                    <span class="avatar" style="background-image: url(/images/avatar.png);"></span>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    
+                    <span class="date" data-time="1531648800"><span class="from"></span></span>
+                    
+                    <span class="tags"><a class="tag" href="/tag/TECH/index.html">TECH</a><a class="tag" href="/tag/Kata/index.html">Kata</a></span>
+                </section>
+                <article class="content"><h2>Interesting Things First</h2>
+
+<p><a href="https://www.planttext.com/">https://www.planttext.com/</a> is quite nice to draw diagrams with easy to
+understand scripts. E.g., the kata containers network hotplug workflow
+diagram is drawn with the following script:</p>
+
+<pre><code>@startuml
+
+User-&gt;CLI: network add-interface
+CLI-&gt;virtcontainers: AddInterface
+virtcontainers-&gt;QEMU:QMP-hot-add-network
+virtcontainers-&gt;agent:UpdateInterface
+note right
+the agent's UpdateInterface code will need to be augmented
+to have a timeout/wait associated with this for the network
+device to appear (ie, wait for qmp to complete)
+end note
+agent-&gt;User: err, interface detail
+
+User-&gt;CLI: network del-interface
+CLI-&gt;virtcontainers: DeleteInterface
+note right
+There will be no call to the agent. We rely on guest kernel
+to clean up any state associated with the interface.
+end note
+virtcontainers-&gt;QEMU:QMP-hot-delete-network
+virtcontainers-&gt;User: err, interface detail
+
+User-&gt;CLI: network list-interface
+CLI-&gt;virtcontainers: ListInterfaces
+virtcontainers-&gt;agent:ListInterfaces
+agent-&gt;User: err, list of interface details
+
+User-&gt;CLI: network update-routes
+CLI-&gt;virtcontainers: UpdateRoutes
+note right
+routes are handled in a 'one shot' basis,
+setting all of the routes for the network. This needs to
+be called after interfaces are added, and should be called
+after interfaces are removed. It should be fine to call once
+after adding all of the expected interfaces. If you know all
+the resulting routes, simply calling set routes with the
+complete list should suffice.
+end note
+virtcontainers-&gt;agent:UpdateRoutes
+agent-&gt;User: err, list of routes
+
+User-&gt;CLI: network list-routes
+CLI-&gt;virtcontainers: ListRoutes
+virtcontainers-&gt;agent:ListRoutes
+agent-&gt;User: err, list of routes
+
+@enduml
+</code></pre>
+
+<h2>Kata Containers Network</h2>
+
+<p>And there is also <a href="https://www.planttext.com/plantuml/txt/bLHDRzim3BthL_2M3h2pkmz1Xss702sm3WrsLYqw5Y9BhaGdoxyV9NyaIvnqkoNs8_dutgCV0qbFNME4s0Jq-Uhhqxe0YtHmVWTIgLnRGb_94WM_obTxxQbqbgIsw4C1NvHQJuY_N-Qhb-_Fc-Bb-KTUEyfZiw7n5L1kqLAnQPKaFBMpZX2ytjOag4P8e4M02nYKJY4Sj37C6nMGWpS6Tzk6uQW4_w_bdfy0wGPTHvyFKXF845ofkP7YMgg1QXsWSXxYg96dmhtc2Tn2jYrA3myQCqZr4VhUjF5TwPhM8E4dWLP1P2qIrtmLDIq0lSzWqX4KyjxpWYiq7md-3UEeMP5UQ_I34go0PMAIVpB1IRqb_68mcYCu2ziE0y4ElKKJLIeDIWjT2z8UWNF1VQz5mjCYozEwTurNYV5Dx_zN8wC3VIJI4sCcYSADk5s0hYsBay1LLxJ2BAyknJBtd33kDakhJ-xF7d5cN5y3ajshfLM6vTQM0xjm5Y6mXWjuaq67J0GaqdOBqLXc5lqOYY-YkuJN6EXu4O4Z83WGCGtSMLQypMcdVYmV9wgCdLTnNcSKJ0LYji1Zu_Qebh2ciugA5qqNaVXPjgSlvlONhF5tYoMbHSU-tAk2e-jWPzqXOjFLUmoTIJltYsOGD9_RCSs8ZrcIKOCnesAyoDx2WL_egahVZUtvPsXmwNOg1gDlHlHU46BqXW6ti_dF31vv8Vw4_m40">a text version</a> of it.</p>
+
+<p>It&rsquo;s very nice that planttext.com provides three different outputs, PNG, SVG and TXT.</p>
+
+<p><img data-src="/images/kata-containers-network-hotplug.png" data-rotate="90" hight="80%" width="80%" alt="Kata Containers Network Hotplug"></img></p>
+</article>
+                <section class="author">
+                    <div class="avatar" style="background-image: url(/images/avatar.png);"></div>
+                    <a class="name" href="/about.me.html">Bergwolf</a>
+                    <div class="intro">Everyday citizen, A gear</div>
+                </section>
+                <section class="recommend">
+                    
+                    
+                    <section class="nav next">
+                        <div class="head">下篇文章</div>
+                        <a class="link" href="/2018/07/10/percy-bysshe-shelly.html">Poems from Mary Shelley the Film</a>
+                    </section>
+                    
+                </section>
+                
+
+
+            </article>
+        </article>
+        <footer class="footer">
+    <span class="copyright">
+        Bard&#39;s Gallery ©
+        <script type="text/javascript">
+            document.write(new Date().getFullYear());
+        </script>
+    </span>
+    <span class="publish">Powered by <a href="http://www.chole.io/" target="_blank">Ink</a></span>
+</footer>
+
+        <script src="/bundle/index.js"></script>
+    </body>
+</html>
