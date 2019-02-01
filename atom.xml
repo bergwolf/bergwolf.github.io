@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?><feed xmlns="http://www.w3.org/2005/Atom">
   <title>Bard&#39;s Gallery</title>
   <id>https://bergwolf.me</id>
-  <updated>2018-07-26T20:46:21+08:00</updated>
+  <updated>2019-02-01T19:05:15+08:00</updated>
   <subtitle>Into Something Rich and Strange</subtitle>
   <link href="https://bergwolf.me"></link>
   <author>
     <name>Bard&#39;s Gallery</name>
   </author>
+  <entry>
+    <title>Install Kata Containers for docker and Kubernetes</title>
+    <updated>2019-02-01T19:00:00+08:00</updated>
+    <id>tag:bergwolf.me,2019-02-01:/2019/02/01/install-kata-containers-for-docker-kubernetes.html</id>
+    <content type="html">&lt;p&gt;This is a simple guide to install and set up Kata Containers for docker and Kubernetes. For docker, &lt;code&gt;kata-runtime&lt;/code&gt; command line is used as an alternative runtime. For Kubernetes, containerd with shimv2 capable Kata Containers is preferred. Kubernetes &lt;a href=&#34;https://kubernetes.io/docs/concepts/containers/runtime-class/&#34;&gt;RuntimeClass&lt;/a&gt; is then used to enable users to run pods with Kata Containers. There exist different installation guides in each component but a complete guide on how to set things up from scrach is missing. The blog aims to provide a simple version of such a guide.&lt;/p&gt;&#xA;</content>
+    <link href="https://bergwolf.me/2019/02/01/install-kata-containers-for-docker-kubernetes.html"></link>
+    <author>
+      <name>Bergwolf</name>
+    </author>
+  </entry>
   <entry>
     <title>Kata Containers Network Hotplug, and planttext</title>
     <updated>2018-07-25T18:00:00+08:00</updated>
@@ -93,16 +103,6 @@
     <id>tag:bergwolf.me,2017-01-17:/2017/01/17/welcome-haoyu.html</id>
     <content type="html">&lt;p&gt;每一对母子都是生死之交.&lt;/p&gt;&#xA;</content>
     <link href="https://bergwolf.me/2017/01/17/welcome-haoyu.html"></link>
-    <author>
-      <name>Bergwolf</name>
-    </author>
-  </entry>
-  <entry>
-    <title>迁移blog到Hyper.sh</title>
-    <updated>2017-01-17T00:52:00+08:00</updated>
-    <id>tag:bergwolf.me,2017-01-17:/2017/01/17/blog-migration-to-hyper.html</id>
-    <content type="html">&lt;p&gt;一直口水我司优秀90后岩松同学写的静态博客构建工具&lt;a href=&#34;http://www.chole.io/&#34;&gt;Ink&lt;/a&gt;,最近仔细研读&lt;a href=&#34;https://wangxu.me/meta/2016/09/24/blog-to-hyper/&#34;&gt;CTO的博客&lt;/a&gt;之后决定把我的博客也迁移到Ink+Hyper.sh上,吃一下自己的狗粮^_^&lt;/p&gt;&#xA;</content>
-    <link href="https://bergwolf.me/2017/01/17/blog-migration-to-hyper.html"></link>
     <author>
       <name>Bergwolf</name>
     </author>
